@@ -1,28 +1,22 @@
-<img src="banner.png" alt="Vite+React+Tailwind Boilerplate | Sarthak S Kumar"></img>
+<img src="banner.png" alt="Vibisha KT"></img>
 
-# Vite.js + React Boilerplate
+# Vite.js + React
 
-![GitHub License](https://img.shields.io/github/license/SarthakSKumar/Vite.js-React.js-Tailwind-Boilerplate)
-![GitHub Stars](https://img.shields.io/github/stars/SarthakSKumar/Vite.js-React.js-Tailwind-Boilerplate)
-![GitHub Forks](https://img.shields.io/github/forks/SarthakSKumar/Vite.js-React.js-Tailwind-Boilerplate)
-
-Welcome to the Vite.js and React Boilerplate repository! 🚀
-
-This boilerplate provides you with a starting point for your React projects, complete with Tailwind CSS, PostCSS, Autoprefixer, and SWC for JavaScript optimization.
+Welcome to the Vite.js and React repository! 🚀
 
 ## Features
 
-   ✨ Latest Vite.js (v4.4.9) for blazing-fast development.
-   
-   ✨ React with all the goodness it brings.
-   
-   ✨ Tailwind CSS for efficient and responsive styling.
-   
-   ✨ PostCSS and Autoprefixer for advanced CSS processing.
-   
-   ✨ SWC for JavaScript optimization.
-   
-   ✨ Yarn as the package manager.
+✨ Latest Vite.js (v4.4.9) for blazing-fast development.
+
+✨ React with all the goodness it brings.
+
+✨ Tailwind CSS for efficient and responsive styling.
+
+✨ PostCSS and Autoprefixer for advanced CSS processing.
+
+✨ SWC for JavaScript optimization.
+
+✨ Yarn as the package manager.
 
 ## Getting Started
 
