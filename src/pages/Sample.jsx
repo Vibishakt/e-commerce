@@ -1,12 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import FormController from "../Components/FormController";
+import Button from "../components/Button";
 
 function Sample() {
   const { control, handleSubmit } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("Form data:", data);
+  const onSubmit = ({ name = "" }) => {
+    console.log("Form data:", name);
   };
 
   return (
@@ -44,12 +45,7 @@ function Sample() {
           type="textarea"
         />
 
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded"
-        >
-          Submit
-        </button>
+        <Button variant="success">Submit</Button>
       </form>
     </div>
   );

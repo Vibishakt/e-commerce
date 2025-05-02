@@ -1,11 +1,14 @@
 import React from "react";
 import Sample from "./pages/Sample";
+import TopBar from "./components/TopBar";
+import Carousel from "./components/Carousel";
 
 function App() {
   return (
     <>
-      <p className="bg-red-500 text-xl">Vite + React Boilerplate</p>
-      <Sample />
+      <TopBar />
+      <Carousel />
+      {/* <Sample /> */}
     </>
   );
 }

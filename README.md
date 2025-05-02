@@ -25,7 +25,7 @@ Follow these steps to clone and start working with this boilerplate:
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/SarthakSKumar/Vite.js-React.js-Tailwind-Boilerplate.git
+   https://github.com/Vibishakt/e-commerce.git
    cd your-repo-name
    ```
 
@@ -58,9 +58,3 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 - [Tailwind CSS](https://tailwindcss.com/)
 - [PostCSS](https://postcss.org/)
 - [Autoprefixer](https://autoprefixer.github.io/)
-- [SWC](https://swc.rs/)
-- [Yarn](https://yarnpkg.com/)
-
-## Author
-
-- [Sarthak S Kumar](https://github.com/SarthakSKumar)
