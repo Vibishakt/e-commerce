@@ -6,14 +6,14 @@ const TopBar = () => {
   const [toggleBtn, setToggleBtn] = useState(false);
   return (
     <>
-      <div className="bg-teal-200 w-full fixed top-0 justify-between flex px-4 py-2">
+      <div className="bg-teal-200 w-full fixed top-0 justify-between flex px-4 py-2 z-50">
         <div>
           <h1 className=" text-[1rem] font-bold text-zinc-900">PVR shop</h1>
         </div>
         <nav className="nav-list hidden md:block">
-          <a href="#">Shop</a>
-          <a href="#">Mens</a>
-          <a href="#">Women</a>
+          <a href="/">Shop</a>
+          <a href="/mens">Mens</a>
+          <a href="/womens">Women</a>
           <Button variant="login">Login</Button>
         </nav>
         <img
