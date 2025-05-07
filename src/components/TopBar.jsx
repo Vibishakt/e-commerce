@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Button from "../components/Button";
 import menu from "../components/assets/menu.png";
+import { Link } from "react-router-dom";
 
 const TopBar = () => {
   const [toggleBtn, setToggleBtn] = useState(false);
@@ -14,7 +15,9 @@ const TopBar = () => {
           <a href="/">Shop</a>
           <a href="/mens">Mens</a>
           <a href="/womens">Women</a>
-          <Button variant="login">Login</Button>
+          <Button variant="login">
+            <a href="/login">Login</a>
+          </Button>
         </nav>
         <img
           onClick={() => setToggleBtn(!toggleBtn)}
