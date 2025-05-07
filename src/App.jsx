@@ -5,6 +5,8 @@ import Footer from "components/Footer";
 import Mens from "pages/Mens";
 import Womens from "pages/Womens";
 import Home from "pages/home";
+import Login from "pages/Auth/Login";
+import Register from "pages/Auth/Register";
 
 function App() {
   return (
@@ -13,8 +15,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route path="login" element={<Mens />} />
-          <Route path="register" element={<Mens />} /> */}
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
           <Route path="mens" element={<Mens />} />
           <Route path="womens" element={<Womens />} />
           {/* <Route path="product/:id" element={<Womens />} /> */}
