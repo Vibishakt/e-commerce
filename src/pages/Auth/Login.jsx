@@ -63,7 +63,7 @@ function Login() {
             variant="secondary"
             className="rounded-[30px] hover:bg-gray-400"
           >
-            Submit
+            Login
           </Button>
         </div>
         <h3>
