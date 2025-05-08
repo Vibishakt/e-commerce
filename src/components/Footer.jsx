@@ -3,8 +3,8 @@ import { Facebook, Instagram, Whatsapp } from "../assets/icons";
 
 const Footer = () => {
   return (
-    <div className="bg-teal-500 p-2">
-      <div className=" mt-10 text-center footer p">
+    <div className="bg-teal-500 p-1">
+      <div className=" mt-3 text-center footer p">
         <p>SHOP</p>
         <p>ABOUT</p>
         <p>CONTACT</p>
@@ -14,8 +14,8 @@ const Footer = () => {
         <Whatsapp className="bg-white rounded-md p-1" />
         <Instagram className="bg-white rounded-md p-1" />
       </ul>
-      <hr className="p-3 w-full" />
-      <p className="p-4 text-center  text-zinc-600">
+      <hr className="p-2 w-full" />
+      <p className="p-1 text-center  text-zinc-600">
         CopyRight @2025. All Right Reserverd
       </p>
     </div>

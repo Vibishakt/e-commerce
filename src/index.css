@@ -28,3 +28,7 @@
 .footer p{
   @apply text-zinc-600 cursor-pointer hover:text-zinc-300;
 }
+.mens-list a{
+  @apply p-3 text-slate-950 rounded-md shadow-sm  hover:text-slate-400;
+
+}

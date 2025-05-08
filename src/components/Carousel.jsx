@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const Carousel = () => {
-  const [current, setCurrent] = useState(2);
+  const [current, setCurrent] = useState(0);
 
   const images = [
     "https://t4.ftcdn.net/jpg/03/20/46/13/360_F_320461388_5Snqf6f2tRIqiWlaIzNWrCUm1Ocaqhfm.jpg",
