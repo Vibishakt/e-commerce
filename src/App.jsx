@@ -5,6 +5,9 @@ import Home from "pages/home";
 import Login from "pages/Auth/Login";
 import Register from "pages/Auth/Register";
 import Layout from "components/Layout";
+import Footwear from "pages/catagory/Footwear";
+import Bags from "pages/catagory/Bags";
+import BeautyProducts from "pages/catagory/BeautyProduct";
 
 function App() {
   return (
@@ -16,6 +19,9 @@ function App() {
           <Route path="register" element={<Register />} />
           <Route path="category/mens" element={<Mens />} />
           <Route path="category/womens" element={<Womens />} />
+          <Route path="category/footwear" element={<Footwear />} />
+          <Route path="category/bags" element={<Bags />} />
+          <Route path="category/beautyProducts" element={<BeautyProducts />} />
           {/* <Route path="product/:id" element={<Womens />} /> */}
         </Route>
       </Routes>
