@@ -1,21 +1,6 @@
 import { useState } from "react";
 
-const sideMenuData = [
-  {
-    title: "Category",
-    submenu: ["All", "Shirts", "Jeans", "Shoes"],
-  },
-  {
-    title: "Brand",
-    submenu: ["Nike", "Adidas", "Puma", "Zara"],
-  },
-  {
-    title: "Price",
-    submenu: ["Under $50", "$50 - $100", "Over $100"],
-  },
-];
-
-export default function FilterSidebar() {
+export default function FilterSidebar({ sideMenu = [] }) {
   const [openIndex, setOpenIndex] = useState(null);
   const [selectedFilters, setSelectedFilters] = useState([]);
 
@@ -34,7 +19,7 @@ export default function FilterSidebar() {
   return (
     <aside className="p-4 border-r h-full space-y-4 bg-white rounded-md shadow-sm">
       <h2 className="text-xl font-bold text-teal-950">Filters</h2>
-      {sideMenuData.map((menu, index) => (
+      {sideMenu?.map((menu, index) => (
         <div key={menu.title}>
           <button
             onClick={() => toggleMenu(index)}

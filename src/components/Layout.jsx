@@ -6,7 +6,7 @@ const Layout = () => {
   return (
     <div>
       <TopBar />
-      <main className="mt-[60px] bg-blue-100">
+      <main className="mt-[50px] p-1 ">
         <Outlet />
       </main>
       <Footer />

@@ -1,37 +1,27 @@
 import Card from "components/Card";
 import Heading from "components/Heading";
 import FilterSidebar from "components/Sidemenu";
-import { mens } from "pages/home/data";
+import { footwear } from "pages/home/data";
 const sideMenuData = [
   {
     title: "Category",
-    submenu: [
-      "All",
-      "Shirts",
-      "Jeans",
-      "T-Shirts",
-      "Dhoti",
-      "Shorts",
-      "Track Pants",
-      "Ethnic Wear",
-    ],
+    submenu: ["All", "Shoes", "Sandals", "Causal Sandals", "Kids Footwear"],
   },
   {
     title: "Brand",
-    submenu: ["Nike", "Adidas", "Puma", "Zara"],
+    submenu: ["Bata", "Liberty", "Relaxo", "Paragon"],
   },
   {
     title: "Price",
-    submenu: ["Under $250", "$250 - $400", "Over $800"],
+    submenu: ["Under $350", "$350 - $600", "Over $800"],
   },
 ];
 
-function Mens() {
-
+function Footwear() {
   return (
     <>
       <Heading
-        label="Mens Wear"
+        label="FootWear"
         className=" text-center border rounded-md border-teal-500 p-3 text-teal-700 font-bold w-full bg-white"
       />
       <div className="flex justify-between w-full p-2">
@@ -39,7 +29,7 @@ function Mens() {
           <FilterSidebar sideMenu={sideMenuData} />
         </div>
         <div className="grid grid-cols-8 gap-3 m-3 w-[75%]">
-          {mens.map((data) => (
+          {footwear.map((data) => (
             <Card
               key={data.id}
               url={data.url}
@@ -58,4 +48,4 @@ function Mens() {
   );
 }
 
-export default Mens;
+export default Footwear;
