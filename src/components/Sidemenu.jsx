@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function FilterSidebar({ sideMenu = [] }) {
+export default function FilterSidebar({
+  sideMenu = [],
+  selectedItems = () => {},
+}) {
   const [openIndex, setOpenIndex] = useState(null);
   const [selectedFilters, setSelectedFilters] = useState([]);
 
@@ -8,13 +11,17 @@ export default function FilterSidebar({ sideMenu = [] }) {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  const toggleFilter = (filter) => {
+  const toggleFilter = (subMenu) => {
     setSelectedFilters((prev) =>
-      prev.includes(filter)
-        ? prev.filter((item) => item !== filter)
-        : [...prev, filter]
+      prev.includes(subMenu)
+        ? prev.filter((item) => item !== subMenu)
+        : [...prev, subMenu]
     );
   };
+
+  useEffect(() => {
+    selectedItems(selectedFilters);
+  }, [selectedFilters]);
 
   return (
     <aside className="p-4 border-r h-full space-y-4 bg-white rounded-md shadow-sm">
@@ -34,11 +41,12 @@ export default function FilterSidebar({ sideMenu = [] }) {
                 <li key={item}>
                   <button
                     onClick={() => toggleFilter(item)}
-                    className={`block w-full text-left px-2 py-1 rounded text-emerald-600 ${
-                      selectedFilters.includes(item)
-                        ? "bg-emerald-700 text-white"
-                        : "hover:bg-slate-200"
-                    }
+                    className={`block w-full text-left px-2 py-1 rounded text-emerald-600
+                       ${
+                         selectedFilters.includes(item)
+                           ? "bg-emerald-700 text-white"
+                           : "hover:bg-slate-200"
+                       }
                      hover:bg-slate-300 transition-all ease-in-out duration-200
                     `}
                   >

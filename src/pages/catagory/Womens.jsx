@@ -2,22 +2,30 @@ import Card from "components/Card";
 import Heading from "components/Heading";
 import FilterSidebar from "components/Sidemenu";
 import { womens } from "pages/home/data";
+import { useState } from "react";
+import { sideBarFilter } from "utils/common";
 const sideMenuData = [
   {
     title: "Category",
-    submenu: ["All", "Sarees", "Kurti", "Western Top", "Gown", "Palozzo Sets"],
+    submenu: ["All", "Saree", "Kurti", "Top", "Gown", "Palozzo Set"],
   },
   {
     title: "Brand",
-    submenu: ["Jivika", "High Star", "Alisha", "Myra"],
+    submenu: ["Zara", "Nike", "Adidas", "Puma"],
   },
   {
     title: "Price",
-    submenu: ["Under $350", "$350 - $600", "Over $800"],
+    submenu: ["Under $350", "$350 - $600", "Over $601"],
   },
 ];
 
 function Womens() {
+  const [womensProd, setWomenProd] = useState(womens);
+
+  const getSelectedItem = (item = []) => {
+    setWomenProd(sideBarFilter(womens, item, sideMenuData));
+  };
+
   return (
     <>
       <Heading
@@ -26,10 +34,13 @@ function Womens() {
       />
       <div className="flex justify-between w-full p-2">
         <div className="w-[25%] rounded-md border shadow-md ">
-          <FilterSidebar sideMenu={sideMenuData} />
+          <FilterSidebar
+            sideMenu={sideMenuData}
+            selectedItems={getSelectedItem}
+          />
         </div>
         <div className="grid grid-cols-8 gap-3 m-3 w-[75%]">
-          {womens.map((data) => (
+          {womensProd.map((data) => (
             <Card
               key={data.id}
               url={data.url}
@@ -40,6 +51,7 @@ function Womens() {
               ratings={data.ratings}
               className=" h-auto col-span-2"
               varient="product"
+              navigate={`/product-view/${data.id}`}
             />
           ))}
         </div>
