@@ -2,6 +2,8 @@ import Card from "components/Card";
 import Heading from "components/Heading";
 import FilterSidebar from "components/Sidemenu";
 import { bags } from "pages/home/data";
+import { useState } from "react";
+import { sideBarFilter } from "utils/common";
 const sideMenuData = [
   {
     title: "Category",
@@ -20,11 +22,16 @@ const sideMenuData = [
   },
   {
     title: "Price",
-    submenu: ["Under $350", "$350 - $600", "Over $800"],
+    submenu: ["Under $350", "$350 - $600", "Over $601"],
   },
 ];
 
 function Bags() {
+  const [bagsProd, setBagProd] = useState(bags);
+
+  const getSelectedItem = (item = []) => {
+    setBagProd(sideBarFilter(bags, item, sideMenuData));
+  };
   return (
     <>
       <Heading
@@ -33,10 +40,13 @@ function Bags() {
       />
       <div className="flex justify-between w-full p-2">
         <div className="w-[25%] rounded-md border shadow-md ">
-          <FilterSidebar sideMenu={sideMenuData} />
+          <FilterSidebar
+            sideMenu={sideMenuData}
+            selectedItems={getSelectedItem}
+          />
         </div>
         <div className="grid grid-cols-8 gap-3 m-3 w-[75%]">
-          {bags.map((data) => (
+          {bagsProd.map((data) => (
             <Card
               key={data.id}
               url={data.url}
@@ -47,6 +57,7 @@ function Bags() {
               ratings={data.ratings}
               className=" h-auto col-span-2"
               varient="product"
+              navigate={`/product-view/${data.id}`}
             />
           ))}
         </div>

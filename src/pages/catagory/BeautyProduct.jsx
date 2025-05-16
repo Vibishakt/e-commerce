@@ -2,15 +2,19 @@ import Card from "components/Card";
 import Heading from "components/Heading";
 import FilterSidebar from "components/Sidemenu";
 import { beautyProducts } from "pages/home/data";
+import { useState } from "react";
+import { sideBarFilter } from "utils/common";
 const sideMenuData = [
   {
     title: "Category",
     submenu: [
       "All",
-      "Facial Massage Kit",
+      "Massage",
       "Perfume",
-      "Womens FaceWash",
-      "Mens Facewash",
+      "FaceWash",
+      "Face Mask",
+      "Face Pack",
+      "Kit",
       "Capsules",
     ],
   },
@@ -20,11 +24,16 @@ const sideMenuData = [
   },
   {
     title: "Price",
-    submenu: ["Under $350", "$350 - $600", "Over $800"],
+    submenu: ["Under $350", "$350 - $600", "Over $601"],
   },
 ];
 
 function BeautyProducts() {
+  const [beautyProductsProd, setbeautyProductProd] = useState(beautyProducts);
+
+  const getSelectedItem = (item = []) => {
+    setbeautyProductProd(sideBarFilter(beautyProducts, item, sideMenuData));
+  };
   return (
     <>
       <Heading
@@ -33,10 +42,13 @@ function BeautyProducts() {
       />
       <div className="flex justify-between w-full p-2">
         <div className="w-[25%] rounded-md border shadow-md ">
-          <FilterSidebar sideMenu={sideMenuData} />
+          <FilterSidebar
+            sideMenu={sideMenuData}
+            selectedItems={getSelectedItem}
+          />
         </div>
         <div className="grid grid-cols-8 gap-3 m-3 w-[75%]">
-          {beautyProducts.map((data) => (
+          {beautyProductsProd.map((data) => (
             <Card
               key={data.id}
               url={data.url}
@@ -47,6 +59,7 @@ function BeautyProducts() {
               ratings={data.ratings}
               className=" h-auto col-span-2"
               varient="product"
+              navigate={`/product-view/${data.id}`}
             />
           ))}
         </div>

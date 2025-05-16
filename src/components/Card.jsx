@@ -31,7 +31,7 @@ const Card = ({
           <p className="text-center  text-slate-950 font-normal">
             {description}
           </p>
-          <p className="text-left  text-teal-800 font-bold">{price}</p>
+          <p className="text-left  text-teal-800 font-bold">₹{price}</p>
           <p className="text-left p-1 justify-center text-xs w-[55%] text-slate-950 font-bold border rounded-lg bg-slate-400">
             {deliveryStatus}
           </p>

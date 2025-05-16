@@ -18,5 +18,6 @@ module.exports = {
     ],
     "no-unused-vars": 1,
     "react/prop-types": "off",
+    "react-hooks/exhaustive-deps": "off",
   },
 };

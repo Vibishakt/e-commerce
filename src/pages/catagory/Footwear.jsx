@@ -2,10 +2,12 @@ import Card from "components/Card";
 import Heading from "components/Heading";
 import FilterSidebar from "components/Sidemenu";
 import { footwear } from "pages/home/data";
+import { useState } from "react";
+import { sideBarFilter } from "utils/common";
 const sideMenuData = [
   {
     title: "Category",
-    submenu: ["All", "Shoes", "Sandals", "Causal Sandals", "Kids Footwear"],
+    submenu: ["All", "Sports Shoes", "Shoes", "Sandals", "Kids", "Footwear"],
   },
   {
     title: "Brand",
@@ -13,11 +15,16 @@ const sideMenuData = [
   },
   {
     title: "Price",
-    submenu: ["Under $350", "$350 - $600", "Over $800"],
+    submenu: ["Under $350", "$350 - $600", "Over $601"],
   },
 ];
 
 function Footwear() {
+  const [footWearProd, setFootWearProd] = useState(footwear);
+
+  const getSelectedItem = (item = []) => {
+    setFootWearProd(sideBarFilter(footwear, item, sideMenuData));
+  };
   return (
     <>
       <Heading
@@ -26,10 +33,13 @@ function Footwear() {
       />
       <div className="flex justify-between w-full p-2">
         <div className="w-[25%] rounded-md border shadow-md ">
-          <FilterSidebar sideMenu={sideMenuData} />
+          <FilterSidebar
+            sideMenu={sideMenuData}
+            selectedItems={getSelectedItem}
+          />
         </div>
         <div className="grid grid-cols-8 gap-3 m-3 w-[75%]">
-          {footwear.map((data) => (
+          {footWearProd.map((data) => (
             <Card
               key={data.id}
               url={data.url}
@@ -40,6 +50,7 @@ function Footwear() {
               ratings={data.ratings}
               className=" h-auto col-span-2"
               varient="product"
+              navigate={`/product-view/${data.id}`}
             />
           ))}
         </div>
