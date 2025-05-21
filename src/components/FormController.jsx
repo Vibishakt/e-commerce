@@ -10,7 +10,7 @@ const FormController = ({
   ...rest
 }) => {
   const inputClassName =
-    " peer border-0 border-b-2 border-teal-700 bg-transparent pt-5 pb-1 peer focus:outline-none focus:ring-0";
+    " peer border-0 border-b-2 border-teal-700 bg-transparent pt-3 md:pt-5 pb-1 peer focus:outline-none focus:ring-0";
 
   return (
     <div className="  relative flex flex-col mb-4 border-none">
@@ -64,7 +64,10 @@ const FormController = ({
                     {...rest}
                     type="checkbox"
                   />
-                  <label htmlFor={name} className="mb-1 font-semibold">
+                  <label
+                    htmlFor={name}
+                    className="text-xs md:text-lg mb-1 font-semibold"
+                  >
                     {label}
                   </label>
                 </div>

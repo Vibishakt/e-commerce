@@ -12,7 +12,7 @@ const TopBar = () => {
           <h1 className=" text-[1rem] font-bold text-zinc-900">PVR shop</h1>
         </div>
 
-        <div className="md:flex gap-x-6 ">
+        <div className=" hidden md:flex gap-x-6 ">
           <a href="/" className="text-gray-600 hover:text-black p-2">
             Shop
           </a>
@@ -70,18 +70,68 @@ const TopBar = () => {
         </div>
         <img
           onClick={() => setToggleBtn(!toggleBtn)}
-          className="h-4 w-4 block md:hidden"
+          className="relative group block md:hidden mx-14 h-4 w-4"
           src={menu}
           alt="toggle"
         />
       </div>
       {toggleBtn && (
-        <nav className=" mobile-nav fixed top-10 text-center grid w-full md:hidden ">
-          <a href="#">Shop</a>
-          <a href="#">Mens</a>
-          <a href="#">Women</a>
-          <Button variant="login">Login</Button>
-        </nav>
+        <div className="absolute right-0 grid border rounded-md bg-teal-100 z-50 p-2 top-10 text-center h-[25%] w-[40%] text-zinc-700 group-hover:block md:hidden">
+          <a href="/" className="text-gray-600 hover:text-black">
+            Shop
+          </a>
+          <div className="relative group hover:block">
+            <button className="cursor-pointer focus:outline-none p-2 text-gray-600 hover:text-black">
+              Category
+            </button>
+            <ul className="absolute right-28 -mt-16 bg-white text-black rounded-lg shadow-lg hover:bg-gray-200 hidden group-hover:block">
+              <li>
+                <a
+                  href="/category/mens"
+                  className="block px-4 py-2 hover:bg-gray-400"
+                >
+                  Mens
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/category/womens"
+                  className="block px-4 py-2 hover:bg-gray-400"
+                >
+                  Women
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/category/footwear"
+                  className="block px-4 py-2 hover:bg-gray-400"
+                >
+                  Footwear
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/category/bags"
+                  className="block px-4 py-2 hover:bg-gray-400"
+                >
+                  Bags
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/category/beauty-products"
+                  className="block px-4 py-2 hover:bg-gray-400"
+                >
+                  Beauty Products
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <button>
+            <a href="/login">Login</a>
+          </button>
+        </div>
       )}
     </>
   );

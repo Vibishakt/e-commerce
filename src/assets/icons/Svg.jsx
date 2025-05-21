@@ -146,11 +146,30 @@ export const Instagram = (props) => (
   </svg>
 );
 
+export const FilterImg = (props) => (
+  <svg
+    width="800px"
+    height="800px"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="M4 12H20M4 8H20M4 16H12"
+      stroke="#000000"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 export const LoginImg = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="auto"
-    height="300"
+    width="250"
+    height="270"
     viewBox="0 0 793 551.73152"
     role="img"
     {...props}
@@ -275,8 +294,8 @@ export const LoginImg = (props) => (
 export const RegisterImg = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="auto"
-    height="450"
+    width="300"
+    height="175"
     viewBox="0 0 751.57 539.42"
     role="img"
     {...props}
