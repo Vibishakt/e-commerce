@@ -22,15 +22,18 @@ function Login() {
     console.log("Form data:", data);
   };
   return (
-    <div className=" flex justify-center w-full p-5 mt-10 bg-teal-50">
-      <div className="w-1/2">
+    <div className=" flex flex-col md:flex-row  justify-center h-full md:w-full gap-10 md:gap-5 p-3 md:p-5 mt-0 md:mt-0 bg-teal-50">
+      <div className="md:w-1/3">
         <LoginImg />
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-1/3 text-slate-900 p-3 rounded-lg shadow-md bg-teal-100"
+        className="w-full h-[250px] md:h-[350px] md:w-1/3 text-slate-900 p-2 md:p-3 rounded-lg shadow-md bg-teal-100"
       >
-        <Heading label="Login" className="text-center font-bold" />
+        <Heading
+          label="Login"
+          className="text-sm md:text-lg text-center font-bold"
+        />
         <FormController
           name="email"
           control={control}
@@ -53,7 +56,10 @@ function Login() {
             label="Remember Me"
             type="checkbox"
           />
-          <a href="#" className="text-blue-700 hover:underline">
+          <a
+            href="#"
+            className="text-blue-700 text-xs md:text-sm hover:underline"
+          >
             Forgot Password
           </a>
         </div>
@@ -61,12 +67,12 @@ function Login() {
           <Button
             type="submit"
             variant="secondary"
-            className="rounded-[30px] hover:bg-gray-400"
+            className="text-sm md:text-md rounded-[30px] hover:bg-gray-400"
           >
             Login
           </Button>
         </div>
-        <h3>
+        <h3 className="text-xs md:text-lg">
           Don&apos;t have an account?&ensp;
           <a
             href="/register"

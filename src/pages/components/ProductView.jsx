@@ -19,10 +19,10 @@ const ProductView = () => {
   }
   const product = allProducts.find((e) => e.id === productId);
   return (
-    <div className="flex justify-center gap-10 w-full p-5 bg-teal-50">
-      <div className="w-[35%]  flex flex-col p-3 border rounded-md shadow-md bg-white justify-center">
+    <div className="grid md:flex md:justify-center gap-10 w-full p-5 bg-teal-50">
+      <div className="w-full h-auto md:w-[35%]  flex flex-col p-3 border rounded-md shadow-md bg-white justify-center">
         <img
-          width="70%"
+          width="full"
           height="auto"
           className="items-center"
           src={product?.url}
@@ -30,20 +30,20 @@ const ProductView = () => {
         />
         <div className="flex justify-between p-3 mt-5">
           <Button
-            className="bg-transparent border rounded-sm py-3 w-[45%] cursor-pointer border-teal-700 text-slate-900 font-semibold"
+            className="bg-transparent border rounded-sm py-1 md:py-3 w-[35%] md:w-[45%] cursor-pointer border-teal-700 text-slate-900 font-semibold text-xs md:text-sm"
             variant="gost"
           >
             Add to cart
           </Button>
           <Button
-            className=" border rounded-sm w-[45%] py-3 bg-teal-700 text-white font-semibold cursor-pointer"
+            className=" border rounded-sm w-[35%] md:w-[45%] py-1 md:py-3 bg-teal-700 text-white font-semibold cursor-pointer text-xs md:text-sm"
             variant="gost"
           >
             Buy Now
           </Button>
         </div>
       </div>
-      <div className="w-[40%]">
+      <div className="w-full md:w-[40%]">
         <div className=" bg-white border rounded-md p-2">
           <h3 className="text-left text-slate-950 font-bold ">
             {product?.title}
@@ -62,7 +62,7 @@ const ProductView = () => {
               Review
             </p>
           </div>
-          <p className="text-left p-1 justify-center text-xs w-[20%] text-slate-950 font-bold border rounded-lg bg-slate-400">
+          <p className="text-left p-1 justify-center text-xs w-[30%] md:w-[20%] text-slate-950 font-bold border rounded-lg bg-slate-400">
             {product?.deliveryStatus}
           </p>
         </div>

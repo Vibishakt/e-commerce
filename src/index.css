@@ -19,7 +19,7 @@
 }
 
 .mobile-nav a{
-  @apply flex flex-col text-zinc-700 m-1 p-1 border bg-slate-200 hover:bg-slate-400;
+  @apply text-zinc-700 m-1 p-1 border rounded-md bg-teal-100 hover:bg-slate-400;
 }
 
 .footer p{

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const Carousel = () => {
   const [current, setCurrent] = useState(0);
@@ -19,7 +19,7 @@ const Carousel = () => {
   };
 
   return (
-    <div className="h-[400px] relative w-full px-2 mx-auto overflow-hidden rounded-2xl shadow-lg">
+    <div className="sm:h-[200px] md:h-[400px] relative w-full px-2 mx-auto overflow-hidden rounded-2xl shadow-lg ">
       <div
         className="flex transition-transform duration-700 ease-in-out"
         style={{ transform: `translateX(-${current * 100}%)` }}
