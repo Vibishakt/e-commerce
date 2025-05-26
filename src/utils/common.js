@@ -43,3 +43,16 @@ export const sideBarFilter = (
   }
   return filteredVal;
 };
+
+export const getUserDetails = () => {
+  const token = localStorage.getItem("pvr-token");
+  if (token) {
+    return JSON.parse(atob(token.split(".")[1]));
+  }
+  return {};
+};
+
+export const logOut = () => {
+  localStorage.clear();
+  window.location.href = "/";
+};

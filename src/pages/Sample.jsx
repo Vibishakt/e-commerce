@@ -1,54 +1,97 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import FormController from "../Components/FormController";
-import Button from "../components/Button";
+import { getData } from "components/api/ApiController";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-function Sample() {
-  const { control, handleSubmit } = useForm();
+const UserCard = ({ user = {}, setUser }) => {
+  const navigate = useNavigate();
+  return (
+    <div
+      style={{
+        border: "1px solid #ccc",
+        borderRadius: "8px",
+        padding: "16px",
+        maxWidth: "350px",
+        margin: "16px auto",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+      }}
+      className="text-black col-span-3"
+      onClick={() => {
+        setUser(null);
+        navigate(`/sample/${user.id}`);
+      }}
+    >
+      <h2>{user.name}</h2>
+      <p>
+        <strong>Username:</strong> {user.username}
+      </p>
+      <p>
+        <strong>Email:</strong> {user.email}
+      </p>
+      <p>
+        <strong>Address:</strong> {user.address.street}, {user.address.suite},
+        <br />
+        {user.address.city}, {user.address.zipcode}
+      </p>
+      <p>
+        <strong>Phone:</strong> {user.phone}
+      </p>
+      <p>
+        <strong>Website:</strong> {user.website}
+      </p>
+      <p>
+        <strong>Company:</strong> {user.company.name}
+        <br />
+        <em>{user.company.catchPhrase}</em>
+      </p>
+    </div>
+  );
+};
 
-  const onSubmit = ({ name = "" }) => {
-    console.log("Form data:", name);
-  };
+const Sample = () => {
+  const [user, setUser] = useState(null);
+  const { id = "" } = useParams();
+
+  console.log("1111111", id, user);
+
+  useEffect(() => {
+    // Example API endpoint, replace with your actual API if needed
+    if (id) {
+      getData(`/users/${id}`)
+        .then((data) => {
+          setUser(data);
+        })
+        .catch(() => setUser(null));
+    } else {
+      getData(`/users`)
+        .then((data) => {
+          setUser(data);
+        })
+        .catch(() => setUser(null));
+    }
+  }, [id]);
+
+  if (id) {
+    return user ? (
+      <UserCard user={user} setUser={setUser} />
+    ) : (
+      <p>Loading...</p>
+    );
+  }
 
   return (
     <div>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="max-w-md mx-auto p-4 space-y-4"
-      >
-        <FormController
-          name="name"
-          control={control}
-          label="Name"
-          type="text"
-        />
-        <FormController
-          name="dob"
-          control={control}
-          label="Date of Birth"
-          type="date"
-        />
-        <FormController
-          name="gender"
-          control={control}
-          label="Gender"
-          type="select"
-          options={[
-            { label: "Male", value: "male" },
-            { label: "Female", value: "female" },
-          ]}
-        />
-        <FormController
-          name="bio"
-          control={control}
-          label="Bio"
-          type="textarea"
-        />
-
-        <Button variant="success">Submit</Button>
-      </form>
+      <h1>User Card</h1>
+      {user && user?.length > 0 ? (
+        <div className="grid grid-cols-12">
+          {user?.map((item) => (
+            <UserCard key={item.id} user={item} setUser={setUser} />
+          ))}
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
-}
+};
 
 export default Sample;

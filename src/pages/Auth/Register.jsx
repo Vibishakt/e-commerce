@@ -5,6 +5,9 @@ import Heading from "components/Heading";
 import Button from "components/Button";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerSchema } from "./validate";
+import { postJson } from "components/api/ApiController";
+import { API_URL } from "components/api/urls";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const {
@@ -15,8 +18,26 @@ function Register() {
     resolver: yupResolver(registerSchema),
   });
 
-  const onSubmit = (data) => {
-    console.log("Form data:", data);
+  const navigate = useNavigate();
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    const payload = {
+      userName: data?.name,
+      userMail: data?.email,
+      userPhone: data?.phoneNumber,
+      userPassword: data?.password,
+    };
+    postJson(API_URL.USER.REGISTER, payload).then((data) => {
+      if (data) {
+        const { success, statusCode } = data;
+        if (success && statusCode === 200) {
+          navigate("/login");
+        }
+      } else {
+        console.log("11111 login failed", data);
+      }
+    });
   };
   return (
     <div className=" flex flex-col md:flex-row justify-center w-full p-3 md:p-5 md:mt-5 md:gap-5 bg-teal-50">

@@ -1,4 +1,5 @@
 import { RatingImg } from "assets/icons/Svg";
+import { useNavigate } from "react-router-dom";
 
 const Card = ({
   url,
@@ -12,11 +13,12 @@ const Card = ({
   navigate = "",
   varient = "",
 }) => {
+  const navigator = useNavigate();
   if (varient === "product") {
     return (
       <div
         onClick={() => {
-          if (navigate) window.location.href = navigate;
+          if (navigate) navigator(navigate);
         }}
         className={`relative 
           ${

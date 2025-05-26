@@ -9,6 +9,7 @@ import Footwear from "pages/catagory/Footwear";
 import Bags from "pages/catagory/Bags";
 import BeautyProducts from "pages/catagory/BeautyProduct";
 import ProductView from "pages/components/ProductView";
+import Sample from "pages/Sample";
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
           <Route path="category/bags" element={<Bags />} />
           <Route path="category/beauty-products" element={<BeautyProducts />} />
           <Route path="product-view/:productId" element={<ProductView />} />
+          <Route path="sample" element={<Sample />} />
+          <Route path="sample/:id" element={<Sample />} />
         </Route>
       </Routes>
     </BrowserRouter>

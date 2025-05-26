@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Button from "../components/Button";
 import menu from "../components/assets/menu.png";
-
+import { getUserDetails, logOut } from "utils/common";
 const TopBar = () => {
   const [toggleBtn, setToggleBtn] = useState(false);
-
+  const { Name = "" } = getUserDetails();
   return (
     <>
       <div className="bg-teal-200 w-full fixed top-0 justify-between flex px-4 py-2 z-50">
@@ -63,10 +63,27 @@ const TopBar = () => {
               </li>
             </ul>
           </div>
-
-          <Button variant="login">
-            <a href="/login">Login</a>
-          </Button>
+          <div className="relative group hidden md:block">
+            <Button variant="login">
+              {Name ? (
+                <p className="text-gray-600">Hi {Name}</p>
+              ) : (
+                <a href="/login">Login</a>
+              )}
+            </Button>
+            {Name && (
+              <ul className="absolute right-0 top-[40px] w-28 bg-teal-100 text-black rounded-lg shadow-lg hidden group-hover:block">
+                <li>
+                  <button
+                    className="cursor-pointer focus:outline-none p-2 text-gray-600 hover:text-black"
+                    onClick={() => logOut()}
+                  >
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            )}
+          </div>
         </div>
         <img
           onClick={() => setToggleBtn(!toggleBtn)}
