@@ -52,7 +52,7 @@ export const getUserDetails = () => {
   return {};
 };
 
-export const logOut = () => {
+export const logOut = (path = "/") => {
   localStorage.clear();
-  window.location.href = "/";
+  window.location.href = path;
 };

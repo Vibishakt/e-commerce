@@ -1,9 +1,10 @@
 import { FilterImg } from "assets/icons/Svg";
+import { getData } from "components/api/ApiController";
+import { API_URL, WEB_URL } from "components/api/urls";
 import Card from "components/Card";
 import Heading from "components/Heading";
 import FilterSidebar from "components/Sidemenu";
-import { bags } from "pages/home/data";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { sideBarFilter } from "utils/common";
 const sideMenuData = [
   {
@@ -29,10 +30,20 @@ const sideMenuData = [
 
 function Bags() {
   const [filterBtn, setFilterBtn] = useState(false);
-  const [bagsProd, setBagProd] = useState(bags);
+  const [bagsProd, setBagProd] = useState([]);
+  const [filterProd, setFilterProd] = useState([]);
+
+  useEffect(() => {
+    getData(API_URL.PRODUCT.BY_CATEGORY.replace(":category", "Bags")).then(
+      (res) => {
+        setBagProd(res?.data);
+        setFilterProd(res?.data);
+      }
+    );
+  }, []);
 
   const getSelectedItem = (item = []) => {
-    setBagProd(sideBarFilter(bags, item, sideMenuData));
+    setFilterProd(sideBarFilter(bagsProd, item, sideMenuData));
   };
   return (
     <div>
@@ -63,7 +74,7 @@ function Bags() {
           />
         </div>
         <div className="md:overflow-hidden sm:overflow-x-auto grid grid-cols-4 gap-5 gap-x-20 md:grid-cols-8 md:gap-3 m-3 w-[75%]">
-          {bagsProd.map((data) => (
+          {filterProd.map((data) => (
             <Card
               key={data.id}
               url={data.url}
@@ -74,7 +85,10 @@ function Bags() {
               ratings={data.ratings}
               className="h-[250px] md:h-auto col-span-2"
               varient="product"
-              navigate={`/product-view/${data.id}`}
+              navigate={`/${WEB_URL.PRODUCT.VIEW.replace(
+                ":productId",
+                data._id
+              )}`}
             />
           ))}
         </div>

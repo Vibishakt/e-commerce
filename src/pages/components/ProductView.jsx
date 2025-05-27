@@ -1,23 +1,24 @@
 import { RatingImg } from "assets/icons/Svg";
+import { getData } from "components/api/ApiController";
+import { API_URL } from "components/api/urls";
 import Button from "components/Button";
-import { bags, beautyProducts, footwear, mens, womens } from "pages/home/data";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
-const allProducts = [
-  ...mens,
-  ...womens,
-  ...bags,
-  ...footwear,
-  ...beautyProducts,
-];
 
 const ProductView = () => {
   const { productId = "" } = useParams();
+  const [product, setProduct] = useState();
 
-  if (!productId) {
-    return null;
-  }
-  const product = allProducts.find((e) => e.id === productId);
+  useEffect(() => {
+    if (productId) {
+      getData(API_URL.PRODUCT.BY_ID.replace(":productId", productId)).then(
+        (res) => {
+          setProduct(res?.data);
+        }
+      );
+    }
+  }, [productId]);
+
   return (
     <div className="grid md:flex md:justify-center gap-10 w-full p-5 bg-teal-50">
       <div className="w-full h-auto md:w-[35%]  flex flex-col p-3 border rounded-md shadow-md bg-white justify-center">
@@ -48,7 +49,9 @@ const ProductView = () => {
           <h3 className="text-left text-slate-950 font-bold ">
             {product?.title}
           </h3>
-          <p className="text-left  text-teal-800 font-bold">{product?.price}</p>
+          <p className="text-left  text-teal-800 font-bold">
+            ₹{product?.price}
+          </p>
           <div className="flex flex-row p-2 g-3 items-center">
             <div className="flex px-1 items-center gap-1 text-white border rounded-xl bg-green-700">
               <p className="text-xs">{product?.ratings}</p>

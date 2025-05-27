@@ -1,10 +1,11 @@
 import Card from "components/Card";
 import Heading from "components/Heading";
 import FilterSidebar from "components/Sidemenu";
-import { mens } from "pages/home/data";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { sideBarFilter } from "utils/common";
 import { FilterImg } from "assets/icons/Svg";
+import { getData } from "components/api/ApiController";
+import { API_URL, WEB_URL } from "components/api/urls";
 const sideMenuData = [
   {
     title: "Category",
@@ -31,11 +32,22 @@ const sideMenuData = [
 
 function Mens() {
   const [filterBtn, setFilterBtn] = useState(false);
-  const [mensProd, setMenProd] = useState(mens);
+  const [mensProd, setMenProd] = useState([]);
+  const [filterProd, setFilterProd] = useState([]);
+
+  useEffect(() => {
+    getData(API_URL.PRODUCT.BY_CATEGORY.replace(":category", "Men")).then(
+      (res) => {
+        setMenProd(res?.data);
+        setFilterProd(res?.data);
+      }
+    );
+  }, []);
 
   const getSelectedItem = (item = []) => {
-    setMenProd(sideBarFilter(mens, item, sideMenuData));
+    setFilterProd(sideBarFilter(mensProd, item, sideMenuData));
   };
+
   return (
     <div>
       <div className="flex justify-between w-full bg-white">
@@ -65,7 +77,7 @@ function Mens() {
           />
         </div>
         <div className="md:overflow-hidden sm:overflow-x-auto grid grid-cols-4 gap-5 gap-x-20 md:grid-cols-8 md:gap-2 m-3 w-[75%]">
-          {mensProd.map((data) => (
+          {filterProd.map((data) => (
             <Card
               key={data.id}
               url={data.url}
@@ -76,7 +88,10 @@ function Mens() {
               ratings={data.ratings}
               className="h-[250px] md:h-auto col-span-2"
               varient="product"
-              navigate={`/product-view/${data.id}`}
+              navigate={`/${WEB_URL.PRODUCT.VIEW.replace(
+                ":productId",
+                data._id
+              )}`}
             />
           ))}
         </div>
