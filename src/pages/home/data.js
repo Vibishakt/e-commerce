@@ -1,3 +1,5 @@
+import { WEB_URL } from "components/api/urls";
+
 export const features = [
   {
     id: "5461",
@@ -14,7 +16,7 @@ export const features = [
   {
     id: 5463,
     url: "https://images.meesho.com/images/products/458445578/lxp44_400.webp",
-    title: "Womens causal Wear",
+    title: "Womens causal",
     description: "40%-80% offer",
   },
   {
@@ -35,32 +37,32 @@ export const productCategory = [
   {
     id: 5461,
     url: "https://images.meesho.com/images/marketing/1744634780426.webp",
-    title: "Mens",
-    navigateurl: "/category/mens",
+    title: "Men",
+    navigateurl: WEB_URL.PRODUCT.MEN,
   },
   {
     id: 5462,
     url: "https://images.meesho.com/images/marketing/1744634654837.webp",
-    title: "Womens",
-    navigateurl: "/category/womens",
+    title: "Women",
+    navigateurl: WEB_URL.PRODUCT.WOMEN,
   },
   {
     id: 5463,
     url: "https://images.meesho.com/images/marketing/1744634814643.webp",
     title: "Footwear",
-    navigateurl: "/category/footwear",
+    navigateurl: WEB_URL.PRODUCT.FOOTWEAR,
   },
   {
     id: 5464,
     url: "https://images.meesho.com/images/marketing/1744634871107.webp",
-    title: "Beauty Products",
-    navigateurl: "/category/beauty-products",
+    title: "BeautyProducts",
+    navigateurl: WEB_URL.PRODUCT.BEAUTY,
   },
   {
     id: 5465,
     url: "https://images.meesho.com/images/marketing/1744634909968.webp",
-    title: "bags",
-    navigateurl: "/category/bags",
+    title: "Bags",
+    navigateurl: WEB_URL.PRODUCT.BAG,
   },
 ];
 

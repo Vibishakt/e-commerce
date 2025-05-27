@@ -1,9 +1,10 @@
 import { FilterImg } from "assets/icons/Svg";
+import { getData } from "components/api/ApiController";
+import { API_URL, WEB_URL } from "components/api/urls";
 import Card from "components/Card";
 import Heading from "components/Heading";
 import FilterSidebar from "components/Sidemenu";
-import { beautyProducts } from "pages/home/data";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { sideBarFilter } from "utils/common";
 const sideMenuData = [
   {
@@ -31,10 +32,19 @@ const sideMenuData = [
 
 function BeautyProducts() {
   const [filterBtn, setFilterBtn] = useState(false);
-  const [beautyProductsProd, setbeautyProductProd] = useState(beautyProducts);
+  const [beautyProductsProd, setbeautyProductProd] = useState([]);
+  const [filterProd, setFilterProd] = useState([]);
+  useEffect(() => {
+    getData(
+      API_URL.PRODUCT.BY_CATEGORY.replace(":category", "BeautyProducts")
+    ).then((res) => {
+      setbeautyProductProd(res?.data);
+      setFilterProd(res?.data);
+    });
+  }, []);
 
   const getSelectedItem = (item = []) => {
-    setbeautyProductProd(sideBarFilter(beautyProducts, item, sideMenuData));
+    setFilterProd(sideBarFilter(beautyProductsProd, item, sideMenuData));
   };
   return (
     <div>
@@ -65,7 +75,7 @@ function BeautyProducts() {
           />
         </div>
         <div className="md:overflow-hidden sm:overflow-x-auto grid grid-cols-4 gap-5 gap-x-20 md:grid-cols-8 md:gap-3 m-3 w-[75%]">
-          {beautyProductsProd.map((data) => (
+          {filterProd.map((data) => (
             <Card
               key={data.id}
               url={data.url}
@@ -76,7 +86,10 @@ function BeautyProducts() {
               ratings={data.ratings}
               className="h-[250px] md:h-auto col-span-2"
               varient="product"
-              navigate={`/product-view/${data.id}`}
+              navigate={`/${WEB_URL.PRODUCT.VIEW.replace(
+                ":productId",
+                data._id
+              )}`}
             />
           ))}
         </div>

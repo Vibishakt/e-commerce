@@ -10,6 +10,7 @@ import Bags from "pages/catagory/Bags";
 import BeautyProducts from "pages/catagory/BeautyProduct";
 import ProductView from "pages/components/ProductView";
 import Sample from "pages/Sample";
+import { WEB_URL } from "components/api/urls";
 
 function App() {
   return (
@@ -17,14 +18,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="category/mens" element={<Mens />} />
-          <Route path="category/womens" element={<Womens />} />
-          <Route path="category/footwear" element={<Footwear />} />
-          <Route path="category/bags" element={<Bags />} />
-          <Route path="category/beauty-products" element={<BeautyProducts />} />
-          <Route path="product-view/:productId" element={<ProductView />} />
+          <Route path={WEB_URL.USER.LOGIN} element={<Login />} />
+          <Route path={WEB_URL.USER.REGISTER} element={<Register />} />
+          <Route path={WEB_URL.PRODUCT.MEN} element={<Mens />} />
+          <Route path={WEB_URL.PRODUCT.WOMEN} element={<Womens />} />
+          <Route path={WEB_URL.PRODUCT.FOOTWEAR} element={<Footwear />} />
+          <Route path={WEB_URL.PRODUCT.BAG} element={<Bags />} />
+          <Route path={WEB_URL.PRODUCT.BEAUTY} element={<BeautyProducts />} />
+          <Route path={WEB_URL.PRODUCT.VIEW} element={<ProductView />} />
           <Route path="sample" element={<Sample />} />
           <Route path="sample/:id" element={<Sample />} />
         </Route>

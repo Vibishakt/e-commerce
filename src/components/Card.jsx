@@ -68,7 +68,7 @@ const Card = ({
         src={url}
         alt=""
       />
-      <div className=" absolute z-10 bottom-1 sm:p-1 md:p-1 bg-fuchsia-400 rounded-sm gap-2 left-3 hover:scale-105 transition-all ease-in-out duration-300">
+      <div className=" absolute z-10 bottom-1 sm:p-1 md:p-1 bg-teal-700 rounded-md w-[190px] gap-2 left-3 hover:scale-105 transition-all ease-in-out duration-300">
         <h4 className="md:text-lg text-[9px] text-center font-bold p-1">
           {title}
         </h4>

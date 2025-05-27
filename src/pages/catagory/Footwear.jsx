@@ -1,9 +1,10 @@
 import { FilterImg } from "assets/icons/Svg";
+import { getData } from "components/api/ApiController";
+import { API_URL, WEB_URL } from "components/api/urls";
 import Card from "components/Card";
 import Heading from "components/Heading";
 import FilterSidebar from "components/Sidemenu";
-import { footwear } from "pages/home/data";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { sideBarFilter } from "utils/common";
 const sideMenuData = [
   {
@@ -22,10 +23,19 @@ const sideMenuData = [
 
 function Footwear() {
   const [filterBtn, setFilterBtn] = useState(false);
-  const [footWearProd, setFootWearProd] = useState(footwear);
+  const [footWearProd, setFootWearProd] = useState([]);
+  const [filterProd, setFilterProd] = useState([]);
+  useEffect(() => {
+    getData(API_URL.PRODUCT.BY_CATEGORY.replace(":category", "Footwear")).then(
+      (res) => {
+        setFootWearProd(res?.data);
+        setFilterProd(res?.data);
+      }
+    );
+  }, []);
 
   const getSelectedItem = (item = []) => {
-    setFootWearProd(sideBarFilter(footwear, item, sideMenuData));
+    setFilterProd(sideBarFilter(footWearProd, item, sideMenuData));
   };
   return (
     <div>
@@ -56,7 +66,7 @@ function Footwear() {
           />
         </div>
         <div className="md:overflow-hidden sm:overflow-x-auto grid grid-cols-4 gap-5 gap-x-20 md:grid-cols-8 md:gap-3 m-3 w-[75%]">
-          {footWearProd.map((data) => (
+          {filterProd.map((data) => (
             <Card
               key={data.id}
               url={data.url}
@@ -67,7 +77,10 @@ function Footwear() {
               ratings={data.ratings}
               className="h-[250px] md:h-auto col-span-2"
               varient="product"
-              navigate={`/product-view/${data.id}`}
+              navigate={`/${WEB_URL.PRODUCT.VIEW.replace(
+                ":productId",
+                data._id
+              )}`}
             />
           ))}
         </div>
