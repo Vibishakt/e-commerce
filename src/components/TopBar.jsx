@@ -2,17 +2,23 @@ import { useState } from "react";
 import Button from "../components/Button";
 import menu from "../components/assets/menu.png";
 import { getUserDetails, logOut } from "utils/common";
+import { CartIcon } from "assets/icons/Svg";
+import { WEB_URL } from "./api/urls";
+import { useNavigate } from "react-router-dom";
+import Logo_name from "components/assets/Logo_name.png";
+
 const TopBar = () => {
   const [toggleBtn, setToggleBtn] = useState(false);
+  const navigate = useNavigate();
   const { Name = "" } = getUserDetails();
   return (
     <>
       <div className="bg-teal-200 w-full fixed top-0 justify-between flex px-4 py-2 z-50">
         <div>
-          <h1 className=" text-[1rem] font-bold text-zinc-900">PVR shop</h1>
+          <img className="w-[25%]" src={Logo_name} alt="Logo_name" />
         </div>
 
-        <div className=" hidden md:flex gap-x-6 ">
+        <div className="hidden md:flex gap-x-6 ">
           <a href="/" className="text-gray-600 hover:text-black p-2">
             Shop
           </a>
@@ -83,6 +89,9 @@ const TopBar = () => {
                 </li>
               </ul>
             )}
+          </div>
+          <div className="block w-[50px]">
+            <CartIcon onClick={() => navigate(WEB_URL.CART)} />
           </div>
         </div>
         <img

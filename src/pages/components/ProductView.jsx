@@ -1,5 +1,5 @@
 import { RatingImg } from "assets/icons/Svg";
-import { getData } from "components/api/ApiController";
+import { getData, postJson } from "components/api/ApiController";
 import { API_URL } from "components/api/urls";
 import Button from "components/Button";
 import { useEffect, useState } from "react";
@@ -8,6 +8,22 @@ import { useParams } from "react-router-dom";
 const ProductView = () => {
   const { productId = "" } = useParams();
   const [product, setProduct] = useState();
+  const [size, setSize] = useState("");
+
+  function addToCart() {
+    if (product?.product_details?.size?.length > 0 && size) {
+      const payload = {
+        productId: product?._id,
+        qty: 1,
+        size,
+      };
+      postJson(API_URL.CART.ADD_PRODUCT, payload).then((res) => {
+        console.log(res);
+      });
+    } else {
+      alert("Please select the size");
+    }
+  }
 
   useEffect(() => {
     if (productId) {
@@ -33,6 +49,7 @@ const ProductView = () => {
           <Button
             className="bg-transparent border rounded-sm py-1 md:py-3 w-[35%] md:w-[45%] cursor-pointer border-teal-700 text-slate-900 font-semibold text-xs md:text-sm"
             variant="gost"
+            onClick={() => addToCart()}
           >
             Add to cart
           </Button>
@@ -45,7 +62,7 @@ const ProductView = () => {
         </div>
       </div>
       <div className="w-full md:w-[40%]">
-        <div className=" bg-white border rounded-md p-2">
+        <div className=" bg-white border rounded-md p-2 mb-3">
           <h3 className="text-left text-slate-950 font-bold ">
             {product?.title}
           </h3>
@@ -65,8 +82,53 @@ const ProductView = () => {
               Review
             </p>
           </div>
-          <p className="text-left p-1 justify-center text-xs w-[30%] md:w-[20%] text-slate-950 font-bold border rounded-lg bg-slate-400">
+          <p className="text-left p-1 justify-center text-[10px] w-[40%] md:w-[20%] text-slate-950 font-semibold border rounded-lg bg-slate-400">
             {product?.deliveryStatus}
+          </p>
+        </div>
+        <div className=" bg-white border rounded-md p-4 mb-3">
+          <h3 className="text-black text-lg font-semibold mb-2">Select Size</h3>
+          <ul className="flex flex-row gap-2">
+            {product?.product_details?.size?.map((val) => (
+              <li className="text-red-700" key={val}>
+                <Button
+                  onClick={() => setSize(val)}
+                  variant="rounded"
+                  className={
+                    size === val
+                      ? " text-emerald-950 font-semibold border-teal-900"
+                      : "hover:bg-slate-200"
+                  }
+                >
+                  {val}
+                </Button>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className=" bg-white border rounded-md p-2">
+          <h3 className="text-black text-lg font-semibold mb-2">
+            Product Details
+          </h3>
+          <p className="text-black text-sm font-normal">
+            Fabric:&ensp;
+            {product?.product_details?.fabric}
+          </p>
+          <p className="text-black text-sm font-normal">
+            Color:&ensp;
+            {product?.product_details?.color}
+          </p>
+          <p className="text-black text-sm font-normal">
+            Work:&ensp;
+            {product?.product_details?.work}
+          </p>
+          <p className="text-black text-sm font-normal">
+            Occasion:&ensp;
+            {product?.product_details?.occasion}
+          </p>
+          <p className="text-black text-sm font-normal">
+            Seller Name:&ensp;
+            {product?.sellerName}
           </p>
         </div>
       </div>
