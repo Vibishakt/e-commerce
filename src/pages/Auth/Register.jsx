@@ -8,6 +8,8 @@ import { registerSchema } from "./validate";
 import { postJson } from "components/api/ApiController";
 import { API_URL } from "components/api/urls";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Toast } from "components/Toast";
 
 function Register() {
   const {
@@ -17,6 +19,15 @@ function Register() {
   } = useForm({
     resolver: yupResolver(registerSchema),
   });
+  const [showToast, setShowToast] = useState({
+    show: false,
+    message: "",
+  });
+
+  const handleShowToast = (msg) => {
+    setShowToast({ show: true, message: msg });
+    setTimeout(() => setShowToast({ show: false, message: "" }), 3000);
+  };
 
   const navigate = useNavigate();
 
@@ -32,10 +43,11 @@ function Register() {
       if (data) {
         const { success, statusCode } = data;
         if (success && statusCode === 200) {
+          handleShowToast(data?.message);
           navigate("/login");
+        } else {
+          handleShowToast(data?.message);
         }
-      } else {
-        console.log("11111 login failed", data);
       }
     });
   };
@@ -48,6 +60,11 @@ function Register() {
         onSubmit={handleSubmit(onSubmit)}
         className="w-full h-[400px] md:w-[30%] md:h-auto text-slate-900 rounded-lg shadow-md p-3 md:p-3 bg-teal-100"
       >
+        <Toast
+          message={showToast.message}
+          show={showToast.show}
+          onClose={() => setShowToast({ show: false, message: "" })}
+        />
         <Heading
           label="Register"
           className="text-sm md:text-lg text-center font-bold"

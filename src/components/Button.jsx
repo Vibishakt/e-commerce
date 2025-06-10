@@ -1,5 +1,3 @@
-import React from "react";
-
 const Button = ({
   variant = "primary",
   children,
@@ -16,7 +14,7 @@ const Button = ({
     login: "border border-red-500 text-black hover:bg-red-600 rounded-[30px]",
     gost: "",
     rounded:
-      "border-2 bg-white w-[50px] items-center rounded-xl hover:bg-teal-700 hover:text-white",
+      "border-2 bg-white w-auto items-center rounded-xl hover:bg-teal-700 hover:text-white",
   };
 
   const variantStyles = variants[variant];

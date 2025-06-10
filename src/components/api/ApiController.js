@@ -47,9 +47,8 @@ export const postJson = async (url, data, config = {}) => {
     });
     return response.data;
   } catch (error) {
-    const { response: { data: { success, message } = {} } = {} } = error;
-    if (success) return data;
-    alert(message);
+    const { response: { data = {} } = {} } = error;
+    return data;
   }
 };
 export const postMultipart = async (url, formData, config = {}) => {

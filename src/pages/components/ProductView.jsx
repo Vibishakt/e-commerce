@@ -2,13 +2,23 @@ import { RatingImg } from "assets/icons/Svg";
 import { getData, postJson } from "components/api/ApiController";
 import { API_URL } from "components/api/urls";
 import Button from "components/Button";
+import { Toast } from "components/Toast";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const ProductView = () => {
   const { productId = "" } = useParams();
+  const [showToast, setShowToast] = useState({
+    show: false,
+    message: "",
+  });
   const [product, setProduct] = useState();
   const [size, setSize] = useState("");
+
+  const handleShowToast = (msg) => {
+    setShowToast({ show: true, message: msg });
+    setTimeout(() => setShowToast({ show: false, message: "" }), 3000);
+  };
 
   function addToCart() {
     if (product?.product_details?.size?.length > 0 && size) {
@@ -18,10 +28,10 @@ const ProductView = () => {
         size,
       };
       postJson(API_URL.CART.ADD_PRODUCT, payload).then((res) => {
-        console.log(res);
+        handleShowToast(res?.message);
       });
     } else {
-      alert("Please select the size");
+      handleShowToast("Please select the size");
     }
   }
 
@@ -53,6 +63,11 @@ const ProductView = () => {
           >
             Add to cart
           </Button>
+          <Toast
+            message={showToast.message}
+            show={showToast.show}
+            onClose={() => setShowToast({ show: false, message: "" })}
+          />
           <Button
             className=" border rounded-sm w-[35%] md:w-[45%] py-1 md:py-3 bg-teal-700 text-white font-semibold cursor-pointer text-xs md:text-sm"
             variant="gost"
@@ -86,26 +101,30 @@ const ProductView = () => {
             {product?.deliveryStatus}
           </p>
         </div>
-        <div className=" bg-white border rounded-md p-4 mb-3">
-          <h3 className="text-black text-lg font-semibold mb-2">Select Size</h3>
-          <ul className="flex flex-row gap-2">
-            {product?.product_details?.size?.map((val) => (
-              <li className="text-red-700" key={val}>
-                <Button
-                  onClick={() => setSize(val)}
-                  variant="rounded"
-                  className={
-                    size === val
-                      ? " text-emerald-950 font-semibold border-teal-900"
-                      : "hover:bg-slate-200"
-                  }
-                >
-                  {val}
-                </Button>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {product?.product_details?.size.length > 0 && (
+          <div className=" bg-white border rounded-md p-4 mb-3">
+            <h3 className="text-black text-lg font-semibold mb-2">
+              Select Size
+            </h3>
+            <ul className="flex flex-row gap-2">
+              {product?.product_details?.size?.map((val) => (
+                <li className="text-red-700" key={val}>
+                  <Button
+                    onClick={() => setSize(val)}
+                    variant="rounded"
+                    className={
+                      size === val
+                        ? " text-emerald-950 font-semibold border-teal-900"
+                        : "hover:bg-slate-200"
+                    }
+                  >
+                    {val}
+                  </Button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         <div className=" bg-white border rounded-md p-2">
           <h3 className="text-black text-lg font-semibold mb-2">
             Product Details
