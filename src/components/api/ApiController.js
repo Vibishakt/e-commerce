@@ -8,6 +8,22 @@ const axiosInstance = axios.create({
     Accept: "application/json",
   },
 });
+
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("pvr-token"); // or 'authToken' or whatever key you're using
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 export const getData = async (url, params = {}, config = {}) => {
   try {
     const response = await axiosInstance.get(url, {
@@ -31,9 +47,8 @@ export const postJson = async (url, data, config = {}) => {
     });
     return response.data;
   } catch (error) {
-    const { response: { data: { success, message } = {} } = {} } = error;
-    if (success) return data;
-    alert(message);
+    const { response: { data = {} } = {} } = error;
+    return data;
   }
 };
 export const postMultipart = async (url, formData, config = {}) => {

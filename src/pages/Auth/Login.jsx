@@ -7,6 +7,8 @@ import { loginSchema } from "./validate";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { API_URL } from "components/api/urls";
 import { postJson } from "components/api/ApiController";
+import { useState } from "react";
+import { Toast } from "components/Toast";
 
 function Login() {
   const {
@@ -19,6 +21,14 @@ function Login() {
     },
     resolver: yupResolver(loginSchema),
   });
+  const [showToast, setShowToast] = useState({
+    show: false,
+    message: "",
+  });
+  const handleShowToast = (msg) => {
+    setShowToast({ show: true, message: msg });
+    setTimeout(() => setShowToast({ show: false, message: "" }), 3000);
+  };
   const onSubmit = async (data) => {
     const payload = {
       userMail: data?.email,
@@ -30,9 +40,10 @@ function Login() {
         if (success && statusCode === 200) {
           window.location.href = "/";
           localStorage.setItem("pvr-token", data);
+          handleShowToast(res?.message);
         }
       } else {
-        console.log("11111 login failed", res);
+        handleShowToast("Login Failed");
       }
     });
   };
@@ -45,6 +56,11 @@ function Login() {
         onSubmit={handleSubmit(onSubmit)}
         className="w-full h-[250px] md:h-[350px] md:w-1/3 text-slate-900 p-2 md:p-3 rounded-lg shadow-md bg-teal-100"
       >
+        <Toast
+          message={showToast.message}
+          show={showToast.show}
+          onClose={() => setShowToast({ show: false, message: "" })}
+        />
         <Heading
           label="Login"
           className="text-sm md:text-lg text-center font-bold"

@@ -7,6 +7,11 @@ export const API_URL = {
     BY_CATEGORY: "product/all-by-category/:category",
     BY_ID: "product/product-by-id/:productId",
   },
+  CART: {
+    ADD_PRODUCT: "orders/cart/add-product",
+    REMOVE_PRODUCT: "orders/cart/remove-product",
+    MY_CART: "orders/cart/my-cart",
+  },
 };
 
 export const WEB_URL = {
@@ -22,4 +27,6 @@ export const WEB_URL = {
     BAG: "category/bags",
     VIEW: "product-view/:productId",
   },
+
+  CART: "cart",
 };
