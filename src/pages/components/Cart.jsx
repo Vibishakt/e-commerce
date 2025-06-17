@@ -1,19 +1,20 @@
 import { DeleteIcon } from "assets/icons/Svg";
 import { getData, postJson } from "components/api/ApiController";
-import { API_URL } from "components/api/urls";
+import { API_URL, WEB_URL } from "components/api/urls";
 import Heading from "components/Heading";
-import { Toast } from "components/Toast";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { cartQuantity, toaster } from "redux/slice";
 
 const Cart = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [myCart, setMyCart] = useState({});
-  const [showToast, setShowToast] = useState({
-    show: false,
-    message: "",
-  });
+
   const handleShowToast = (msg) => {
-    setShowToast({ show: true, message: msg });
-    setTimeout(() => setShowToast({ show: false, message: "" }), 3000);
+    dispatch(toaster({ show: true, message: msg }));
+    setTimeout(() => dispatch(toaster({ show: false, message: "" })), 3000);
   };
 
   function remove(items) {
@@ -22,6 +23,7 @@ const Cart = () => {
         handleShowToast(res?.message);
         getData(API_URL.CART.MY_CART).then((res) => {
           setMyCart(res?.data);
+          dispatch(cartQuantity(res?.data?.totalQty));
         });
       }
     );
@@ -29,6 +31,7 @@ const Cart = () => {
 
   useEffect(() => {
     getData(API_URL.CART.MY_CART).then((res) => {
+      dispatch(cartQuantity(res?.data?.totalQty));
       setMyCart(res?.data);
     });
   }, []);
@@ -54,18 +57,36 @@ const Cart = () => {
             {myCart?.items?.map((val) => (
               <tr className="text-left border border-x-2" key={val._id}>
                 <td>
-                  <img className="w-[35%] p-2" src={val.imageUrl} />
+                  <img
+                    onClick={() =>
+                      navigate(
+                        `/${WEB_URL.PRODUCT.VIEW.replace(
+                          ":productId",
+                          val.productId
+                        )}`
+                      )
+                    }
+                    className="w-[35%] p-2 cursor-pointer"
+                    src={val.imageUrl}
+                  />
                 </td>
-                <td>{val.title}</td>
+                <td
+                  onClick={() =>
+                    navigate(
+                      `/${WEB_URL.PRODUCT.VIEW.replace(
+                        ":productId",
+                        val.productId
+                      )}`
+                    )
+                  }
+                  className="cursor-pointer hover:font-semibold"
+                >
+                  {val.title}
+                </td>
                 <td>{val.size}</td>
-                <td>{val.price}</td>
+                <td>₹{val.price}</td>
                 <td>
                   <DeleteIcon fill="red" onClick={() => remove(val)} />
-                  <Toast
-                    message={showToast.message}
-                    show={showToast.show}
-                    onClose={() => setShowToast({ show: false, message: "" })}
-                  />
                 </td>
               </tr>
             ))}
@@ -80,30 +101,30 @@ const Cart = () => {
         <table className="w-[90%] table-fixed m-3">
           <tr className="text-black">
             <td>Number of items:</td>
-            <td>{myCart.totalQty}</td>
+            <td>{myCart?.totalQty}</td>
           </tr>
           <tr className="text-black">
-            <td>Orignal Price:</td>
-            <td>₹{myCart.originalCost}</td>
+            <td>Original Price:</td>
+            <td>₹{myCart?.originalCost}</td>
           </tr>
           <tr className="text-black">
             <td>Discount:</td>
-            <td>-₹{myCart.discount}</td>
+            <td>-₹{myCart?.discount}</td>
           </tr>
           <tr className="text-black">
             <td>Delivery Charge:</td>
-            <td>₹{myCart.deliveryCharge}</td>
+            <td>₹{myCart?.deliveryCharge}</td>
           </tr>
           <tr className="text-black">
             <td>Total Products Price:</td>
-            <td>₹{myCart.totalCost}</td>
+            <td>₹{myCart?.totalCost}</td>
           </tr>
 
           <hr className="boder-1 border-black w-[320px] m-2" />
 
           <tr className="text-black font-bold">
             <td>Order Total:</td>
-            <td>₹{myCart.totalCost}</td>
+            <td>₹{myCart?.totalCost}</td>
           </tr>
         </table>
       </div>

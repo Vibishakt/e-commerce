@@ -6,11 +6,15 @@ import { CartIcon } from "assets/icons/Svg";
 import { WEB_URL } from "./api/urls";
 import { useNavigate } from "react-router-dom";
 import Logo_name from "components/assets/Logo_name.png";
+import { useSelector } from "react-redux";
+import { getCartCount } from "redux/selector";
 
 const TopBar = () => {
   const [toggleBtn, setToggleBtn] = useState(false);
   const navigate = useNavigate();
   const { Name = "" } = getUserDetails();
+  const count = useSelector(getCartCount);
+
   return (
     <>
       <div className="bg-teal-200 w-full fixed top-0 justify-between flex px-4 py-2 z-50">
@@ -90,8 +94,14 @@ const TopBar = () => {
               </ul>
             )}
           </div>
-          <div className="block w-[50px]">
+          <div className="block w-[50px] align-middle mt-2">
             <CartIcon onClick={() => navigate(WEB_URL.CART)} />
+
+            {count && (
+              <div className="w-[12px] h-[12px] bg-red-700 text-white justify-center text-[8px] border-1 rounded-[35px] flex -mt-7 ml-4">
+                {count}
+              </div>
+            )}
           </div>
         </div>
         <img

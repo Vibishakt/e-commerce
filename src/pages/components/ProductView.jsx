@@ -2,22 +2,20 @@ import { RatingImg } from "assets/icons/Svg";
 import { getData, postJson } from "components/api/ApiController";
 import { API_URL } from "components/api/urls";
 import Button from "components/Button";
-import { Toast } from "components/Toast";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { cartQuantity, toaster } from "redux/slice";
 
 const ProductView = () => {
   const { productId = "" } = useParams();
-  const [showToast, setShowToast] = useState({
-    show: false,
-    message: "",
-  });
   const [product, setProduct] = useState();
   const [size, setSize] = useState("");
+  const dispatch = useDispatch();
 
   const handleShowToast = (msg) => {
-    setShowToast({ show: true, message: msg });
-    setTimeout(() => setShowToast({ show: false, message: "" }), 3000);
+    dispatch(toaster({ show: true, message: msg }));
+    setTimeout(() => dispatch(toaster({ show: false, message: "" })), 3000);
   };
 
   function addToCart() {
@@ -29,6 +27,9 @@ const ProductView = () => {
       };
       postJson(API_URL.CART.ADD_PRODUCT, payload).then((res) => {
         handleShowToast(res?.message);
+        getData(API_URL.CART.MY_CART).then((res) => {
+          dispatch(cartQuantity(res?.data?.totalQty));
+        });
       });
     } else {
       handleShowToast("Please select the size");
@@ -63,11 +64,6 @@ const ProductView = () => {
           >
             Add to cart
           </Button>
-          <Toast
-            message={showToast.message}
-            show={showToast.show}
-            onClose={() => setShowToast({ show: false, message: "" })}
-          />
           <Button
             className=" border rounded-sm w-[35%] md:w-[45%] py-1 md:py-3 bg-teal-700 text-white font-semibold cursor-pointer text-xs md:text-sm"
             variant="gost"
