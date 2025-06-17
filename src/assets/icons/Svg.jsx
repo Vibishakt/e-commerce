@@ -419,8 +419,8 @@ export const RatingImg = (props) => (
 
 export const CartIcon = (props) => (
   <svg
-    width="35px"
-    height="35px"
+    width="25px"
+    height="25px"
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

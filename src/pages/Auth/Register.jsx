@@ -8,8 +8,8 @@ import { registerSchema } from "./validate";
 import { postJson } from "components/api/ApiController";
 import { API_URL } from "components/api/urls";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { Toast } from "components/Toast";
+import { useDispatch } from "react-redux";
+import { toaster } from "redux/slice";
 
 function Register() {
   const {
@@ -19,14 +19,11 @@ function Register() {
   } = useForm({
     resolver: yupResolver(registerSchema),
   });
-  const [showToast, setShowToast] = useState({
-    show: false,
-    message: "",
-  });
+  const dispatch = useDispatch();
 
   const handleShowToast = (msg) => {
-    setShowToast({ show: true, message: msg });
-    setTimeout(() => setShowToast({ show: false, message: "" }), 3000);
+    dispatch(toaster({ show: true, message: msg }));
+    setTimeout(() => dispatch(toaster({ show: false, message: "" })), 3000);
   };
 
   const navigate = useNavigate();
@@ -60,11 +57,6 @@ function Register() {
         onSubmit={handleSubmit(onSubmit)}
         className="w-full h-[400px] md:w-[30%] md:h-auto text-slate-900 rounded-lg shadow-md p-3 md:p-3 bg-teal-100"
       >
-        <Toast
-          message={showToast.message}
-          show={showToast.show}
-          onClose={() => setShowToast({ show: false, message: "" })}
-        />
         <Heading
           label="Register"
           className="text-sm md:text-lg text-center font-bold"
