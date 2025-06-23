@@ -12,6 +12,12 @@ export const API_URL = {
     REMOVE_PRODUCT: "orders/cart/remove-product",
     MY_CART: "orders/cart/my-cart",
   },
+  BUY: {
+    ADD_ADDRESS: "user/add-update-address",
+    UPDATE_ADDRESS: "user/add-update-address",
+    DELETE_ADDRESS: "user/delete-address",
+    MY_ADDRESS: "user/my-address",
+  },
 };
 
 export const WEB_URL = {

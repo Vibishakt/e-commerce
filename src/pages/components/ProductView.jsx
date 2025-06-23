@@ -1,10 +1,10 @@
 import { RatingImg } from "assets/icons/Svg";
-import { getData, postJson } from "components/api/ApiController";
-import { API_URL } from "components/api/urls";
+import { getData, postJson } from "api/ApiController";
+import { API_URL, WEB_URL } from "api/urls";
 import Button from "components/Button";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { cartQuantity, toaster } from "redux/slice";
 
 const ProductView = () => {
@@ -12,30 +12,42 @@ const ProductView = () => {
   const [product, setProduct] = useState();
   const [size, setSize] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleShowToast = (msg) => {
     dispatch(toaster({ show: true, message: msg }));
     setTimeout(() => dispatch(toaster({ show: false, message: "" })), 3000);
   };
 
-  function addToCart() {
-    if (product?.product_details?.size?.length > 0 && size) {
+  function addToCart(type) {
+    if (
+      (product?.product_details?.size?.length > 0 && size) ||
+      product?.product_details?.size?.length === 0
+    ) {
       const payload = {
         productId: product?._id,
         qty: 1,
         size,
       };
       postJson(API_URL.CART.ADD_PRODUCT, payload).then((res) => {
-        handleShowToast(res?.message);
-        getData(API_URL.CART.MY_CART).then((res) => {
-          dispatch(cartQuantity(res?.data?.totalQty));
-        });
+        if (res) {
+          const { success, statusCode = "" } = res;
+          if (success && statusCode === 200) {
+            handleShowToast(res?.message);
+
+            getData(API_URL.CART.MY_CART).then((res) => {
+              dispatch(cartQuantity(res?.data?.totalQty));
+              if (type === "BUY") {
+                navigate(`/${WEB_URL.CART}`);
+              }
+            });
+          }
+        }
       });
     } else {
       handleShowToast("Please select the size");
     }
   }
-
   useEffect(() => {
     if (productId) {
       getData(API_URL.PRODUCT.BY_ID.replace(":productId", productId)).then(
@@ -60,13 +72,14 @@ const ProductView = () => {
           <Button
             className="bg-transparent border rounded-sm py-1 md:py-3 w-[35%] md:w-[45%] cursor-pointer border-teal-700 text-slate-900 font-semibold text-xs md:text-sm"
             variant="gost"
-            onClick={() => addToCart()}
+            onClick={() => addToCart("ADD")}
           >
             Add to cart
           </Button>
           <Button
             className=" border rounded-sm w-[35%] md:w-[45%] py-1 md:py-3 bg-teal-700 text-white font-semibold cursor-pointer text-xs md:text-sm"
             variant="gost"
+            onClick={() => addToCart("BUY")}
           >
             Buy Now
           </Button>

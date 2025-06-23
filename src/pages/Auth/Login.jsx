@@ -5,8 +5,8 @@ import Heading from "components/Heading";
 import Button from "components/Button";
 import { loginSchema } from "./validate";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { API_URL } from "components/api/urls";
-import { postJson } from "components/api/ApiController";
+import { API_URL } from "api/urls";
+import { postJson } from "api/ApiController";
 import { toaster } from "redux/slice";
 import { useDispatch } from "react-redux";
 

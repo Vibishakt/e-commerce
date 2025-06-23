@@ -1,4 +1,4 @@
-import { WEB_URL } from "components/api/urls";
+import { WEB_URL } from "api/urls";
 
 export const features = [
   {

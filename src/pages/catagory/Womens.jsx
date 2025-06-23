@@ -1,6 +1,6 @@
 import { FilterImg } from "assets/icons/Svg";
-import { getData } from "components/api/ApiController";
-import { API_URL, WEB_URL } from "components/api/urls";
+import { getData } from "api/ApiController";
+import { API_URL, WEB_URL } from "api/urls";
 import Card from "components/Card";
 import Heading from "components/Heading";
 import FilterSidebar from "components/Sidemenu";
