@@ -1,4 +1,4 @@
-import { EMAIL, EN, EN_SPECIAL_NUMERIC, MOBILE } from "utils/regex";
+import { EMAIL, EN, EN_SPECIAL_NUMERIC, MOBILE, PINCODE } from "utils/regex";
 import * as yup from "yup";
 
 export const loginSchema = yup.object().shape({
@@ -23,4 +23,16 @@ export const registerSchema = yup.object().shape({
   confirmPassword: yup
     .string()
     .oneOf([yup.ref("password"), null], "Passwords must match!"),
+});
+
+export const addressSchema = yup.object().shape({
+  name: yup.string().required("Name is required").matches(EN, "Invalid Name"),
+  phoneNumber: yup
+    .string()
+    .required("Phone number is required")
+    .matches(MOBILE, "Invalid number"),
+  pincode: yup
+    .string()
+    .required("Pincode is required")
+    .matches(PINCODE, "Invalid pincode"),
 });

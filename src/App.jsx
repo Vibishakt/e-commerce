@@ -10,11 +10,12 @@ import Bags from "pages/catagory/Bags";
 import BeautyProducts from "pages/catagory/BeautyProduct";
 import ProductView from "pages/components/ProductView";
 import Sample from "pages/Sample";
-import { WEB_URL } from "components/api/urls";
+import { WEB_URL } from "api/urls";
 import Cart from "pages/components/Cart";
 import { Provider } from "react-redux";
 import { store } from "store";
 import { Toast } from "components/Toast";
+import Address from "pages/components/Stepper/Address";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path={WEB_URL.CART} element={<Cart />} />
             <Route path="sample" element={<Sample />} />
             <Route path="sample/:id" element={<Sample />} />
+            <Route path="/address" element={<Address />} />
           </Route>
         </Routes>
         <Toast />

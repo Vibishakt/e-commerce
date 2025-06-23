@@ -4,8 +4,8 @@ import FilterSidebar from "components/Sidemenu";
 import { useEffect, useState } from "react";
 import { sideBarFilter } from "utils/common";
 import { FilterImg } from "assets/icons/Svg";
-import { getData } from "components/api/ApiController";
-import { API_URL, WEB_URL } from "components/api/urls";
+import { getData } from "api/ApiController";
+import { API_URL, WEB_URL } from "api/urls";
 const sideMenuData = [
   {
     title: "Category",

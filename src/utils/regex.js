@@ -4,3 +4,5 @@ export const EN_NUMERIC = /^[A-Z0-9]*$/;
 export const EN_SPECIAL_NUMERIC =
   /^[A-Za-z0-9!@#$%^&*()_+\-=[\]{}|;:'",.<>/?`~\\]+$/;
 export const MOBILE = /^\d{10}$/;
+
+export const PINCODE = /^\d{6}$/;

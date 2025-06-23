@@ -2,11 +2,11 @@ import Card from "components/Card";
 import Heading from "components/Heading";
 import { productCategory } from "./data";
 
-function ProductsCategory() {
+function ProductsCategory({ className, title = "Product Category" }) {
   return (
-    <div className="grid justify-center bg-white w-full p-5">
+    <div className={`grid justify-center bg-white w-full p-5${className}`}>
       <Heading
-        label="Product Category "
+        label={title}
         className="text-[12px] md:text-[26px] flex justify-center font-bold p-2"
       />
       <div className="grid grid-cols-10 gap-3 m-3 w-full">

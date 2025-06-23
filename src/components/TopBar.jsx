@@ -1,19 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/Button";
-import menu from "../components/assets/menu.png";
+import menu from "assets/images/menu.png";
 import { getUserDetails, logOut } from "utils/common";
 import { CartIcon } from "assets/icons/Svg";
-import { WEB_URL } from "./api/urls";
+import { API_URL, WEB_URL } from "../api/urls";
 import { useNavigate } from "react-router-dom";
-import Logo_name from "components/assets/Logo_name.png";
-import { useSelector } from "react-redux";
+import Logo_name from "assets/images/Logo_name.png";
+import { useDispatch, useSelector } from "react-redux";
 import { getCartCount } from "redux/selector";
+import { getData } from "../api/ApiController";
+import { cartQuantity } from "redux/slice";
 
 const TopBar = () => {
   const [toggleBtn, setToggleBtn] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { Name = "" } = getUserDetails();
   const count = useSelector(getCartCount);
+
+  useEffect(() => {
+    getData(API_URL.CART.MY_CART).then((res) => {
+      dispatch(cartQuantity(res?.data?.totalQty));
+    });
+  }, []);
 
   return (
     <>
@@ -95,9 +104,12 @@ const TopBar = () => {
             )}
           </div>
           <div className="block w-[50px] align-middle mt-2">
-            <CartIcon onClick={() => navigate(WEB_URL.CART)} />
+            <CartIcon
+              className="cursor-pointer"
+              onClick={() => navigate(WEB_URL.CART)}
+            />
 
-            {count && (
+            {count && count !== 0 && (
               <div className="w-[12px] h-[12px] bg-red-700 text-white justify-center text-[8px] border-1 rounded-[35px] flex -mt-7 ml-4">
                 {count}
               </div>

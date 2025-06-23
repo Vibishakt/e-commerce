@@ -1,4 +1,4 @@
-import { getData } from "components/api/ApiController";
+import { getData } from "api/ApiController";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
