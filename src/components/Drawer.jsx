@@ -1,25 +1,53 @@
+import { useDispatch, useSelector } from "react-redux";
 import Heading from "./Heading";
 import { CloseIcon } from "assets/icons/Svg";
+import { getShowDrawer } from "redux/selector";
+import { showDrawer } from "redux/slice";
+import Address from "pages/components/Stepper/Address";
 
-function Drawer({
-  content = "",
-  title = "",
-  width = "400px",
-  open = false,
-  setOpen = () => {},
-}) {
+function Drawer() {
+  const {
+    content = "",
+    title = "",
+    width = "400px",
+    show = false,
+    addressData = {},
+  } = useSelector(getShowDrawer);
+
+  const drawerMap = {
+    address: Address,
+  };
+  const dispatch = useDispatch();
+  const Map = drawerMap[content];
+  if (!show) return null;
   return (
     <div
-      className={`fixed p-2 top-[4rem] right-0 bg-white shadow-lg w-[${width}] h-full delay-200 transition-transform transform ${
-        open ? "translate-x-0" : "translate-x-full"
+      style={{ width }}
+      className={`fixed p-2 top-[5rem] rounded-md right-0 bg-white shadow-lg h-[80%] delay-200 transition-transform transform ${
+        show ? "translate-x-0" : "translate-x-full"
       }`}
     >
-      <CloseIcon onClick={() => setOpen(!open)} className="cursor-pointer" />
+      <CloseIcon
+        onClick={() =>
+          dispatch(
+            showDrawer({
+              show: false,
+              content: "",
+              title: null,
+              width: null,
+              addressData: null,
+            })
+          )
+        }
+        className="cursor-pointer"
+      />
       <Heading
         label={title}
         className="text-[15px] text-center font-bold pb-3"
       />
-      <div className="flex w-full overflow-y-auto h-[78%]">{content}</div>
+      <div className="flex w-full overflow-y-auto h-[78%]">
+        {Map ? <Map addressData={addressData} /> : null}
+      </div>
     </div>
   );
 }

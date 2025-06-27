@@ -14,7 +14,6 @@ export const API_URL = {
   },
   BUY: {
     ADD_ADDRESS: "user/add-update-address",
-    UPDATE_ADDRESS: "user/add-update-address",
     DELETE_ADDRESS: "user/delete-address",
     MY_ADDRESS: "user/my-address",
   },

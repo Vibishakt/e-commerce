@@ -4,17 +4,19 @@ import { API_URL, WEB_URL } from "api/urls";
 import Button from "components/Button";
 import Heading from "components/Heading";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { cartQuantity, toaster } from "redux/slice";
+import { addressList, cartQuantity, showDrawer, toaster } from "redux/slice";
 import Drawer from "components/Drawer";
-import Address from "./Stepper/Address";
+
+import { AddressCard } from "./AddressCard";
+import { getAddressList } from "redux/selector";
 
 const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [myCart, setMyCart] = useState({});
-  const [open, setOpen] = useState(false);
+  const addedList = useSelector(getAddressList);
 
   const handleShowToast = (msg) => {
     dispatch(toaster({ show: true, message: msg }));
@@ -45,6 +47,11 @@ const Cart = () => {
         setMyCart(res.data);
       }
     });
+    getData(API_URL.BUY.MY_ADDRESS).then((res) => {
+      if (res?.data) {
+        dispatch(addressList(res?.data));
+      }
+    });
   }, []);
 
   if (Object.keys(myCart).length === 0) {
@@ -52,7 +59,7 @@ const Cart = () => {
       <div className="flex flex-col p-3 gap-10 w-full bg-white">
         <div className="flex justify-center">
           <EmptyCart className="relative items-center w-full" />
-          <h2 className="absolute font-bold text-black text-lg text-center bottom-64">
+          <h2 className="absolute font-bold text-black text-lg text-center bottom-14">
             Cart is Empty
           </h2>
         </div>
@@ -128,6 +135,38 @@ const Cart = () => {
               ))}
             </tbody>
           </table>
+          <div className="flex justify-between w-full">
+            <Heading
+              label="Select Delivery Address"
+              className="text-lg font-bold text-teal-900 p-2"
+            />
+            <Button
+              variant="gost"
+              className="text-center text-teal-900 font-bold w-[45%]"
+              onClick={() =>
+                dispatch(
+                  showDrawer({
+                    show: true,
+                    content: "address",
+                    title: "ADD DELIVERY ADDRESS",
+                    width: "400px",
+                    addressData: null,
+                  })
+                )
+              }
+            >
+              +Add address
+            </Button>
+            <Drawer />
+          </div>
+          {addedList.length !== 0 && (
+            <div className="grid grid-cols-4 gap-4">
+              {Array.isArray(addedList) &&
+                addedList?.map((addresses) => (
+                  <AddressCard key={addresses?._id} addressData={addresses} />
+                ))}
+            </div>
+          )}
         </div>
         <div className="w-1/3">
           <Heading
@@ -163,20 +202,8 @@ const Cart = () => {
               <td>₹{myCart?.totalCost}</td>
             </tr>
           </table>
-          <Drawer
-            open={open}
-            setOpen={setOpen}
-            title="ADD DELIVERY ADDRESS"
-            content={<Address />}
-          />
+
           <div className="flex justify-center ml-10 p-4 w-[55%]">
-            <Button
-              variant="primary"
-              className="font-bold text-center w-[85%]"
-              onClick={() => setOpen(!open)}
-            >
-              Add address
-            </Button>
             <Button
               variant="primary"
               className="font-bold text-center w-[85%]"

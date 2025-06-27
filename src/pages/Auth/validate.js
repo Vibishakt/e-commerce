@@ -27,7 +27,7 @@ export const registerSchema = yup.object().shape({
 
 export const addressSchema = yup.object().shape({
   name: yup.string().required("Name is required").matches(EN, "Invalid Name"),
-  phoneNumber: yup
+  phone: yup
     .string()
     .required("Phone number is required")
     .matches(MOBILE, "Invalid number"),

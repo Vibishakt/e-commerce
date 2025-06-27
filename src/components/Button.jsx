@@ -5,7 +5,7 @@ const Button = ({
   className = "",
   ...rest
 }) => {
-  const baseStyles = "px-4 py-1 rounded font-medium focus:outline-none ";
+  const baseStyles = "px-4 py-1 rounded focus:outline-none ";
   const variants = {
     primary: "bg-teal-800 text-white hover:bg-teal-600",
     secondary: "bg-gray-500 text-white hover:bg-gray-600",
