@@ -6,6 +6,14 @@ const initialState = {
     show: false,
     message: "",
   },
+  showDrawer: {
+    content: "",
+    title: "",
+    width: "400px",
+    show: false,
+    addressData: {},
+  },
+  addressList: [],
 };
 
 const commonSlice = createSlice({
@@ -18,8 +26,15 @@ const commonSlice = createSlice({
     toaster(state, action) {
       return { ...state, toaster: action.payload };
     },
+    showDrawer(state, action) {
+      return { ...state, showDrawer: action.payload };
+    },
+    addressList(state, action) {
+      return { ...state, addressList: action.payload };
+    },
   },
 });
 
-export const { cartQuantity, toaster } = commonSlice.actions;
+export const { cartQuantity, toaster, showDrawer, addressList } =
+  commonSlice.actions;
 export default commonSlice.reducer;

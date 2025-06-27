@@ -11,6 +11,7 @@ const Card = ({
   reviews,
   ratings,
   navigate = "",
+
   varient = "",
 }) => {
   const navigator = useNavigate();
@@ -58,6 +59,7 @@ const Card = ({
       </div>
     );
   }
+
   return (
     <div
       onClick={() => (window.location.href = navigate)}

@@ -1,0 +1,61 @@
+import { getData, postJson } from "api/ApiController";
+import { API_URL } from "api/urls";
+import { DeleteIcon } from "assets/icons/Svg";
+import Button from "components/Button";
+import { useDispatch } from "react-redux";
+import { addressList, showDrawer } from "redux/slice";
+
+export const AddressCard = ({ addressData = {} }) => {
+  const dispatch = useDispatch();
+
+  function deleteAddress(res) {
+    if (res)
+      postJson(API_URL.BUY.DELETE_ADDRESS, { addressId: res }).then((res) => {
+        if (res)
+          getData(API_URL.BUY.MY_ADDRESS).then((res) => {
+            dispatch(addressList(res?.data));
+          });
+      });
+  }
+
+  function editAddress(data) {
+    dispatch(
+      showDrawer({
+        show: true,
+        content: "address",
+        title: "ADD DELIVERY ADDRESS",
+        width: "400px",
+        addressData: data,
+      })
+    );
+  }
+
+  return (
+    <div className="w-full h-[250px] border-2 rounded-xl shadow-md col-span-2 p-3 cursor-pointer">
+      <div className="flex justify-between">
+        <Button
+          variant="gost"
+          className="text-center text-teal-900 font-bold w-[12%]"
+          onClick={() => editAddress(addressData)}
+        >
+          EDIT
+        </Button>
+        <DeleteIcon
+          className="cursor-pointer"
+          fill="red"
+          onClick={() => deleteAddress(addressData._id)}
+        />
+      </div>
+      <div className="m-1">
+        <p className="text-lg font-bold text-black p-2">{addressData.name}</p>
+        <p className="text-sm text-black p-1">
+          {addressData.houseAddress},{addressData.locality},
+          {addressData.district}
+        </p>
+        <p className="text-sm text-black p-1">{addressData.state}</p>
+        <p className="text-sm text-black p-1">{addressData.pincode}</p>
+        <p className="text-sm text-black p-1">{addressData.phone}</p>
+      </div>
+    </div>
+  );
+};
