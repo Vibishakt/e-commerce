@@ -11,6 +11,8 @@ export const API_URL = {
     ADD_PRODUCT: "orders/cart/add-product",
     REMOVE_PRODUCT: "orders/cart/remove-product",
     MY_CART: "orders/cart/my-cart",
+    PLACE_ORDER: "/orders/place-order",
+    MAKE_PAYMENT: "/orders/make-payment",
   },
   BUY: {
     ADD_ADDRESS: "user/add-update-address",

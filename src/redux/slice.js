@@ -14,6 +14,13 @@ const initialState = {
     addressData: {},
   },
   addressList: [],
+  showPopup: {
+    title: "",
+    content: "",
+    show: false,
+    type: "",
+    checkOut: "",
+  },
 };
 
 const commonSlice = createSlice({
@@ -32,9 +39,12 @@ const commonSlice = createSlice({
     addressList(state, action) {
       return { ...state, addressList: action.payload };
     },
+    showPopup(state, action) {
+      return { ...state, showPopup: action.payload };
+    },
   },
 });
 
-export const { cartQuantity, toaster, showDrawer, addressList } =
+export const { cartQuantity, toaster, showDrawer, addressList, showPopup } =
   commonSlice.actions;
 export default commonSlice.reducer;
