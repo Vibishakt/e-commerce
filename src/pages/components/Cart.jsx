@@ -11,12 +11,18 @@ import Drawer from "components/Drawer";
 
 import { AddressCard } from "./AddressCard";
 import { getAddressList } from "redux/selector";
+import { loadStripe } from "@stripe/stripe-js";
 
 const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [address, setAddress] = useState({});
   const [myCart, setMyCart] = useState({});
   const addedList = useSelector(getAddressList);
+
+  const stripePromise = loadStripe(
+    "pk_test_51QXeIlCR6zsCjfr1B4ni3XiK7HLOUNtk9ykkJbvH6kl7V7hGbEt9MLBe8tqkltfsbQHbXwqIV75CyX78cMhleShk00slD6InKE"
+  );
 
   const handleShowToast = (msg) => {
     dispatch(toaster({ show: true, message: msg }));
@@ -39,6 +45,20 @@ const Cart = () => {
       }
     );
   }
+
+  const makePayment = async () => {
+    if (addedList?.length > 0 && address?._id) {
+      const payload = {
+        currency: "INR",
+        amount: myCart?.totalCost * 100,
+      };
+      postJson(API_URL.CART.MAKE_PAYMENT, payload);
+      const stripe = await stripePromise;
+      await stripe.redirectToCheckout();
+    } else {
+      alert("Please select the address");
+    }
+  };
 
   useEffect(() => {
     getData(API_URL.CART.MY_CART).then((res) => {
@@ -76,15 +96,15 @@ const Cart = () => {
     );
   } else {
     return (
-      <div className="flex justify-between flex-row w-full px-4 py-10">
-        <div className="w-[70%]">
+      <div className="relative flex justify-between flex-row w-full px-4 py-10">
+        <div className="w-[70%] ml-5">
           <Heading
             label="My Cart Details"
             className="text-lg  text-teal-900 font-bold p-2"
           />
-          <table className=" table-fixed border border-r-2 w-[90%] m-2 text-black">
+          <table className=" table-fixed border border-r-2 w-full m-2 text-black">
             <thead>
-              <tr className="border-b-2 p-3 text-left">
+              <tr className="border-b-2 p-2 text-left">
                 <th>Product</th>
                 <th>Title</th>
                 <th>Size</th>
@@ -163,12 +183,21 @@ const Cart = () => {
             <div className="grid grid-cols-4 gap-4">
               {Array.isArray(addedList) &&
                 addedList?.map((addresses) => (
-                  <AddressCard key={addresses?._id} addressData={addresses} />
+                  <AddressCard
+                    key={addresses?._id}
+                    addressData={addresses}
+                    onClick={() => setAddress(addresses)}
+                    className={
+                      address?._id === addresses?._id
+                        ? " text-emerald-950 font-semibold border-teal-900"
+                        : "hover:bg-slate-200"
+                    }
+                  />
                 ))}
             </div>
           )}
         </div>
-        <div className="w-1/3">
+        <div className="w-1/3 ml-5">
           <Heading
             label="Price Details"
             className="text-lg font-bold text-teal-900 p-2"
@@ -206,15 +235,33 @@ const Cart = () => {
           <div className="flex justify-center ml-10 p-4 w-[55%]">
             <Button
               variant="primary"
-              className="font-bold text-center w-[85%]"
-              onClick={() => (window.location.href = "/")}
+              className="font-bold text-center w-full"
+              onClick={() => makePayment(myCart)}
             >
-              Buy Now
+              Pay Now
             </Button>
           </div>
         </div>
+        {/* {showPopup && (
+          <Popup
+            title="Confirmation Message"
+            content="Are you sure want to confirm these orders and proceed to payment?"
+            type="PayNow"
+            className="absolute"
+            close={setShowPopup}
+          />
+        )} */}
       </div>
     );
   }
 };
+{
+  /* <StripeCheckout
+  name={myCart?._id}
+  amount={myCart?.totalCost}
+  currency="INR"
+  token={buyNow}
+  stripeKey="pk_test_51QXeIlCR6zsCjfr1B4ni3XiK7HLOUNtk9ykkJbvH6kl7V7hGbEt9MLBe8tqkltfsbQHbXwqIV75CyX78cMhleShk00slD6InKE"
+></StripeCheckout>; */
+}
 export default Cart;

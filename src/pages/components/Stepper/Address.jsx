@@ -8,7 +8,7 @@ import { addressSchema } from "pages/Auth/validate";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { addressList } from "redux/slice";
+import { addressList, showDrawer } from "redux/slice";
 
 const Address = ({ addressData = {} }) => {
   const {
@@ -30,6 +30,15 @@ const Address = ({ addressData = {} }) => {
         if (success && statusCode === 200) {
           getData(API_URL.BUY.MY_ADDRESS).then((res) => {
             dispatch(addressList(res?.data));
+            dispatch(
+              showDrawer({
+                show: false,
+                content: "",
+                title: null,
+                width: null,
+                addressData: null,
+              })
+            );
           });
         }
       }

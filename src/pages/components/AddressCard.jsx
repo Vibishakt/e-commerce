@@ -5,7 +5,11 @@ import Button from "components/Button";
 import { useDispatch } from "react-redux";
 import { addressList, showDrawer } from "redux/slice";
 
-export const AddressCard = ({ addressData = {} }) => {
+export const AddressCard = ({
+  addressData = {},
+  onClick = () => {},
+  className = "",
+}) => {
   const dispatch = useDispatch();
 
   function deleteAddress(res) {
@@ -31,7 +35,10 @@ export const AddressCard = ({ addressData = {} }) => {
   }
 
   return (
-    <div className="w-full h-[250px] border-2 rounded-xl shadow-md col-span-2 p-3 cursor-pointer">
+    <div
+      onClick={onClick}
+      className={`w-full h-[220px] border-2 rounded-xl shadow-md col-span-2 p-3 cursor-pointer ${className}`}
+    >
       <div className="flex justify-between">
         <Button
           variant="gost"
