@@ -2,6 +2,7 @@ export const API_URL = {
   USER: {
     LOGIN: "/user/login",
     REGISTER: "/user/register",
+    DEFAULT_ADDRESS: "/user/set-default-address",
   },
   PRODUCT: {
     BY_CATEGORY: "product/all-by-category/:category",
@@ -13,6 +14,7 @@ export const API_URL = {
     MY_CART: "orders/cart/my-cart",
     PLACE_ORDER: "/orders/place-order",
     MAKE_PAYMENT: "/orders/make-payment",
+    MY_ORDER: "/orders/my-order",
   },
   BUY: {
     ADD_ADDRESS: "user/add-update-address",
