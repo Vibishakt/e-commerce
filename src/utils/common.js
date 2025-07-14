@@ -56,3 +56,21 @@ export const logOut = (path = "/") => {
   localStorage.clear();
   window.location.href = path;
 };
+
+export function formatDate(isoString) {
+  if (!isoString) return "";
+  return new Date(isoString).toLocaleString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+export function addDaysToDate(isoString, days = 5) {
+  if (!isoString) return "";
+  const date = new Date(isoString);
+  date.setDate(date.getDate() + days);
+  return date.toISOString();
+}
+export function deliveryDate(isoString, days = 5) {
+  return formatDate(addDaysToDate(isoString, days));
+}

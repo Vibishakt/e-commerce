@@ -32,7 +32,8 @@ export const getData = async (url, params = {}, config = {}) => {
     });
     return response.data;
   } catch (error) {
-    throw error.response || error;
+    const { response: { data = {} } = {} } = error;
+    return data;
   }
 };
 

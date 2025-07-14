@@ -11,7 +11,7 @@ const Button = ({
     secondary: "bg-gray-500 text-white hover:bg-gray-600",
     success: "bg-green-500 text-white hover:bg-green-600",
     danger: "items-center bg-red-700 w-[20px] hover:bg-red-600",
-    login: "border border-red-500 text-black hover:bg-red-600 rounded-[30px]",
+    login: "border border-red-800 text-black hover:text-red-700 rounded-[30px]",
     gost: "",
     rounded:
       "border-2 bg-white w-auto items-center rounded-xl hover:bg-teal-700 hover:text-white",

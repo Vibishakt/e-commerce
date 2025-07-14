@@ -66,7 +66,6 @@ const Cart = () => {
         amount: data?.totalCost * 100,
       };
       postJson(API_URL.CART.MAKE_PAYMENT, payload).then((res) => {
-        console.log("11111", res);
         setClientSecret(res?.data?.client_secret);
         setPaymentId(res?.data?.id);
         setShowForm(true);
@@ -89,9 +88,7 @@ const Cart = () => {
       paymentId: paymentIdFromUrl,
       cartId: myCart?._id,
     };
-    console.log("2222", payload);
     postJson(API_URL.CART.PLACE_ORDER, payload).then((res) => {
-      console.log("22222", res);
       if (res)
         dispatch(
           showPopup({
@@ -100,7 +97,7 @@ const Cart = () => {
             show: true,
             type: "Ok",
             onButtonClick: () => {
-              window.location.href = "/";
+              window.location.href = WEB_URL.ORDER.PLACE_ORDER;
             },
           })
         );
@@ -110,9 +107,9 @@ const Cart = () => {
   useEffect(() => {
     getData(API_URL.CART.MY_CART).then((res) => {
       if (res?.data) {
+        console.log("11111111", res);
         dispatch(cartQuantity(res.data?.totalQty));
         setMyCart(res.data);
-
         setAddress(res?.data?.address);
       }
     });

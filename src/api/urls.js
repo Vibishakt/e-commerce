@@ -38,4 +38,7 @@ export const WEB_URL = {
   },
 
   CART: "cart",
+  ORDER: {
+    PLACE_ORDER: "/order-page",
+  },
 };

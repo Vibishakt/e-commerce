@@ -37,7 +37,7 @@ function App() {
             <Route path={WEB_URL.CART} element={<Cart />} />
             <Route path="sample" element={<Sample />} />
             <Route path="sample/:id" element={<Sample />} />
-            <Route path="/orderpage" element={<OrderPage />} />
+            <Route path={WEB_URL.ORDER.PLACE_ORDER} element={<OrderPage />} />
           </Route>
         </Routes>
         <Toast />
