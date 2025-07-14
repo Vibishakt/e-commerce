@@ -16,6 +16,8 @@ import { Provider } from "react-redux";
 import { store } from "store";
 import { Toast } from "components/Toast";
 import Address from "pages/components/Stepper/Address";
+import { Popup } from "components/Popup";
+import OrderPage from "pages/components/OrderPage";
 
 function App() {
   return (
@@ -35,10 +37,11 @@ function App() {
             <Route path={WEB_URL.CART} element={<Cart />} />
             <Route path="sample" element={<Sample />} />
             <Route path="sample/:id" element={<Sample />} />
-            <Route path="/address" element={<Address />} />
+            <Route path={WEB_URL.ORDER.PLACE_ORDER} element={<OrderPage />} />
           </Route>
         </Routes>
         <Toast />
+        <Popup />
       </BrowserRouter>
     </Provider>
   );

@@ -19,7 +19,7 @@ const initialState = {
     content: "",
     show: false,
     type: "",
-    checkOut: "",
+    onButtonClick: () => {},
   },
 };
 

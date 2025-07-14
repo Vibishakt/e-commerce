@@ -4,7 +4,7 @@ import ProductsCategory from "./ProductsCategory";
 
 function Home() {
   return (
-    <div>
+    <div className="bg-teal-50">
       <Carousel />
       <ProductsCategory />
       <Features />

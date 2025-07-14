@@ -5,24 +5,37 @@ import Button from "components/Button";
 import Heading from "components/Heading";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { addressList, cartQuantity, showDrawer, toaster } from "redux/slice";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import {
+  addressList,
+  cartQuantity,
+  showDrawer,
+  showPopup,
+  toaster,
+} from "redux/slice";
 import Drawer from "components/Drawer";
 
 import { AddressCard } from "./AddressCard";
 import { getAddressList } from "redux/selector";
 import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import { CheckoutForm } from "./Stepper/CheckoutForm";
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
+const base_url = import.meta.env.VITE_BASE_URL;
 
 const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [address, setAddress] = useState({});
+  const [address, setAddress] = useState("");
   const [myCart, setMyCart] = useState({});
   const addedList = useSelector(getAddressList);
-
-  const stripePromise = loadStripe(
-    "pk_test_51QXeIlCR6zsCjfr1B4ni3XiK7HLOUNtk9ykkJbvH6kl7V7hGbEt9MLBe8tqkltfsbQHbXwqIV75CyX78cMhleShk00slD6InKE"
-  );
+  const [clientSecret, setClientSecret] = useState("");
+  const [showForm, setShowForm] = useState(false);
+  const [paymentId, setPaymentId] = useState("");
+  const [paymentIdFromUrl, setPaymentIdFromUrl] = useState(null);
+  const [buttonMode, setButtonMode] = useState("");
+  const [searchParams] = useSearchParams();
 
   const handleShowToast = (msg) => {
     dispatch(toaster({ show: true, message: msg }));
@@ -46,25 +59,58 @@ const Cart = () => {
     );
   }
 
-  const makePayment = async () => {
-    if (addedList?.length > 0 && address?._id) {
+  const makePayment = async (data) => {
+    if (addedList?.length > 0 && address) {
       const payload = {
         currency: "INR",
-        amount: myCart?.totalCost * 100,
+        amount: data?.totalCost * 100,
       };
-      postJson(API_URL.CART.MAKE_PAYMENT, payload);
-      const stripe = await stripePromise;
-      await stripe.redirectToCheckout();
+      postJson(API_URL.CART.MAKE_PAYMENT, payload).then((res) => {
+        setClientSecret(res?.data?.client_secret);
+        setPaymentId(res?.data?.id);
+        setShowForm(true);
+      });
     } else {
       alert("Please select the address");
     }
   };
 
+  const defaultAddress = (addresses) => {
+    setAddress(addresses._id);
+    const payload = {
+      addressId: addresses?._id,
+    };
+    postJson(API_URL.USER.DEFAULT_ADDRESS, payload);
+  };
+
+  const placeOrder = () => {
+    const payload = {
+      paymentId: paymentIdFromUrl,
+      cartId: myCart?._id,
+    };
+    postJson(API_URL.CART.PLACE_ORDER, payload).then((res) => {
+      if (res)
+        dispatch(
+          showPopup({
+            title: "***THANK YOU***",
+            content: "Your Order Is Confirmed",
+            show: true,
+            type: "Ok",
+            onButtonClick: () => {
+              window.location.href = WEB_URL.ORDER.PLACE_ORDER;
+            },
+          })
+        );
+    });
+  };
+
   useEffect(() => {
     getData(API_URL.CART.MY_CART).then((res) => {
       if (res?.data) {
+        console.log("11111111", res);
         dispatch(cartQuantity(res.data?.totalQty));
         setMyCart(res.data);
+        setAddress(res?.data?.address);
       }
     });
     getData(API_URL.BUY.MY_ADDRESS).then((res) => {
@@ -72,14 +118,21 @@ const Cart = () => {
         dispatch(addressList(res?.data));
       }
     });
-  }, []);
+    const paymentUrlId = searchParams.get("paymentId");
+
+    if (paymentUrlId) {
+      setPaymentIdFromUrl(paymentUrlId);
+
+      setButtonMode("order");
+    }
+  }, [searchParams]);
 
   if (Object.keys(myCart).length === 0) {
     return (
-      <div className="flex flex-col p-3 gap-10 w-full bg-white">
+      <div className="flex flex-col p-3 gap-10 w-full bg-teal-100">
         <div className="flex justify-center">
           <EmptyCart className="relative items-center w-full" />
-          <h2 className="absolute font-bold text-black text-lg text-center bottom-14">
+          <h2 className="absolute font-bold text-black text-lg text-center bottom-64">
             Cart is Empty
           </h2>
         </div>
@@ -96,7 +149,7 @@ const Cart = () => {
     );
   } else {
     return (
-      <div className="relative flex justify-between flex-row w-full px-4 py-10">
+      <div className="relative flex justify-between flex-row w-full px-4 py-10 bg-teal-50">
         <div className="w-[70%] ml-5">
           <Heading
             label="My Cart Details"
@@ -175,7 +228,7 @@ const Cart = () => {
                 )
               }
             >
-              +Add address
+              +ADD NEW ADDRESS
             </Button>
             <Drawer />
           </div>
@@ -186,9 +239,9 @@ const Cart = () => {
                   <AddressCard
                     key={addresses?._id}
                     addressData={addresses}
-                    onClick={() => setAddress(addresses)}
+                    onClick={() => defaultAddress(addresses)}
                     className={
-                      address?._id === addresses?._id
+                      address === addresses?._id
                         ? " text-emerald-950 font-semibold border-teal-900"
                         : "hover:bg-slate-200"
                     }
@@ -197,7 +250,7 @@ const Cart = () => {
             </div>
           )}
         </div>
-        <div className="w-1/3 ml-5">
+        <div className="relative w-1/3 ml-5">
           <Heading
             label="Price Details"
             className="text-lg font-bold text-teal-900 p-2"
@@ -236,32 +289,31 @@ const Cart = () => {
             <Button
               variant="primary"
               className="font-bold text-center w-full"
-              onClick={() => makePayment(myCart)}
+              onClick={() => {
+                if (buttonMode === "order" && paymentIdFromUrl) {
+                  console.log("1111", paymentIdFromUrl);
+                  placeOrder(myCart, paymentIdFromUrl);
+                } else {
+                  makePayment(myCart, addedList);
+                }
+              }}
             >
-              Pay Now
+              {buttonMode === "order" ? "Place Order" : "Pay Now"}
             </Button>
+            {showForm && clientSecret && (
+              <Elements stripe={stripePromise} options={{ clientSecret }}>
+                <CheckoutForm
+                  paymentId={paymentId}
+                  base_url={base_url}
+                  className="absolute"
+                />
+              </Elements>
+            )}
           </div>
         </div>
-        {/* {showPopup && (
-          <Popup
-            title="Confirmation Message"
-            content="Are you sure want to confirm these orders and proceed to payment?"
-            type="PayNow"
-            className="absolute"
-            close={setShowPopup}
-          />
-        )} */}
       </div>
     );
   }
 };
-{
-  /* <StripeCheckout
-  name={myCart?._id}
-  amount={myCart?.totalCost}
-  currency="INR"
-  token={buyNow}
-  stripeKey="pk_test_51QXeIlCR6zsCjfr1B4ni3XiK7HLOUNtk9ykkJbvH6kl7V7hGbEt9MLBe8tqkltfsbQHbXwqIV75CyX78cMhleShk00slD6InKE"
-></StripeCheckout>; */
-}
+
 export default Cart;

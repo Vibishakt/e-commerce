@@ -4,7 +4,7 @@ import { productCategory } from "./data";
 
 function ProductsCategory({ className, title = "Product Category" }) {
   return (
-    <div className={`grid justify-center bg-white w-full p-5${className}`}>
+    <div className={`grid justify-center bg-teal-50 w-full p-5${className}`}>
       <Heading
         label={title}
         className="text-[12px] md:text-[26px] flex justify-center font-bold p-2"

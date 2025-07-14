@@ -9,6 +9,7 @@ export const Popup = ({ className = "" }) => {
     content = "",
     show = false,
     type = "",
+    onButtonClick = () => {},
   } = useSelector(getShowPopup);
 
   const dispatch = useDispatch();
@@ -16,12 +17,12 @@ export const Popup = ({ className = "" }) => {
   if (!show) return null;
   return (
     <div
-      className={`show?w-full fixed flex justify-center h-full top-0 ${className}`}
+      className={`show? w-full fixed flex justify-center h-full top-0 ${className}`}
     >
-      <div className="flex flex-col justify-center bg-white w-[50%] h-[40%] mt-40 border-1 rounded-lg shadow-2xl gap-5">
+      <div className="flex flex-col justify-center bg-white w-[40%] h-[40%] mt-40 border-1 rounded-lg shadow-2xl gap-5">
         <div className="text-black text-center font-bold">{title}</div>
         <div className="text-black text-center font-semibold">{content}</div>
-        <div className="flex justify-center gap-2">
+        <div className="flex justify-center gap-5">
           <Button
             varient="primary"
             onClick={() =>
@@ -31,6 +32,7 @@ export const Popup = ({ className = "" }) => {
                   content: null,
                   show: false,
                   type: null,
+                  onButtonClick: () => {},
                 })
               )
             }
@@ -38,7 +40,15 @@ export const Popup = ({ className = "" }) => {
             Cancel
           </Button>
 
-          <Button variant="primary">{type}</Button>
+          {type && (
+            <Button
+              className="w-[15%]"
+              onClick={onButtonClick}
+              variant="primary"
+            >
+              {type}
+            </Button>
+          )}
         </div>
       </div>
     </div>

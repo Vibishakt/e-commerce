@@ -4,10 +4,11 @@ const Carousel = () => {
   const [current, setCurrent] = useState(0);
 
   const images = [
+    "https://img.freepik.com/free-photo/elderly-woman-shopping-customer-day_23-2151638448.jpg?semt=ais_hybrid&w=740",
     "https://t4.ftcdn.net/jpg/03/20/46/13/360_F_320461388_5Snqf6f2tRIqiWlaIzNWrCUm1Ocaqhfm.jpg",
     "https://t3.ftcdn.net/jpg/04/38/59/88/360_F_438598896_D9pyLmbMZ02CrxURfHxU4nG5UlzXv6Dy.jpg",
     "https://t4.ftcdn.net/jpg/03/06/69/49/360_F_306694930_S3Z8H9Qk1MN79ZUe7bEWqTFuonRZdemw.jpg",
-    "https://t4.ftcdn.net/jpg/03/48/05/47/360_F_348054737_Tv5fl9LQnZnzDUwskKVKd5Mzj4SjGFxa.jpg",
+    // "https://t4.ftcdn.net/jpg/03/48/05/47/360_F_348054737_Tv5fl9LQnZnzDUwskKVKd5Mzj4SjGFxa.jpg",
   ];
 
   const nextSlide = () => {
@@ -19,7 +20,7 @@ const Carousel = () => {
   };
 
   return (
-    <div className="sm:h-[200px] md:h-[400px] relative w-full px-2 mx-auto overflow-hidden rounded-2xl shadow-lg ">
+    <div className="sm:h-[200px] md:h-[350px] mt-5 w-full relative px-2 mx-auto overflow-hidden rounded-2xl shadow-lg ">
       <div
         className="flex transition-transform duration-700 ease-in-out"
         style={{ transform: `translateX(-${current * 100}%)` }}
