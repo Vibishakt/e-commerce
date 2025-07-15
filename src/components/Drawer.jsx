@@ -23,7 +23,7 @@ function Drawer() {
   return (
     <div
       style={{ width }}
-      className={`fixed p-2 z-10 top-[5rem] rounded-md right-0 bg-white shadow-lg h-[80%] delay-200 transition-transform transform ${
+      className={`fixed p-2 z-10 top-[5rem] rounded-md w-[100px] md:[400px] right-0 bg-white shadow-lg h-[50%] md:h-[80%] delay-200 transition-transform transform ${
         show ? "translate-x-0" : "translate-x-full"
       }`}
     >
@@ -43,9 +43,9 @@ function Drawer() {
       />
       <Heading
         label={title}
-        className="text-[15px] text-center font-bold pb-3"
+        className="text-[10px] md:text-[15px] text-center font-bold pb-3"
       />
-      <div className="flex w-full overflow-y-auto h-[78%]">
+      <div className="flex w-[50%] md:w-full overflow-y-auto h-[78%]">
         {Map ? <Map addressData={addressData} /> : null}
       </div>
     </div>

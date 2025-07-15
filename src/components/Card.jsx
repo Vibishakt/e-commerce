@@ -70,8 +70,8 @@ const Card = ({
         src={url}
         alt=""
       />
-      <div className=" absolute z-10 bottom-1 text-center sm:p-1 md:p-1 bg-teal-700 rounded-md w-[175px] gap-2 left-2 hover:scale-105 transition-all ease-in-out duration-300">
-        <h4 className="md:text-md text-[14px] text-center font-bold p-1">
+      <div className=" absolute z-10 bottom-1 md:text-center text-center sm:p-1 md:p-1 bg-teal-700 rounded-md md:w-[175px] w-[70px] gap-2 md:left-3 left-1 hover:scale-105 transition-all ease-in-out duration-300">
+        <h4 className="text-[6px] md:text-[14px] md:items-center items-center font-bold p-1">
           {title}
         </h4>
         <p className="md:text-lg text-[8px] text-center font-normal">

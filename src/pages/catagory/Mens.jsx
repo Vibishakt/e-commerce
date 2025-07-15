@@ -81,8 +81,8 @@ function Mens() {
     );
   } else
     return (
-      <div>
-        <div className="flex justify-between w-full bg-white">
+      <div className="w-full bg-white">
+        <div className="flex justify-between">
           <FilterImg
             onClick={() => setFilterBtn(!filterBtn)}
             className="relative group block md:hidden mx-10 h-8 w-8 mt-2"
@@ -108,7 +108,7 @@ function Mens() {
               selectedItems={getSelectedItem}
             />
           </div>
-          <div className="md:overflow-hidden sm:overflow-x-auto grid grid-cols-4 gap-5 gap-x-20 md:grid-cols-8 md:gap-2 m-3 w-[75%]">
+          <div className="md:overflow-hidden sm:overflow-x-auto grid grid-cols-4 gap-5 gap-x-20 md:grid-cols-8 md:gap-2 m-2 w-[70%] h-[90%]">
             {filterProd.map((data) => (
               <Card
                 key={data._id}

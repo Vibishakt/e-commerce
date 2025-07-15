@@ -10,7 +10,7 @@ function Features() {
           label="Features Products"
           className="text-[12px] md:text-[26px] text-2xl font-bold flex justify-center p-2"
         />
-        <div className="grid grid-cols-10 gap-3 m-3 w-full">
+        <div className="grid grid-cols-10 md:gap-3 gap-6 md:m-3 m-3 w-full">
           {features.map((data) => (
             <Card
               key={data.id}

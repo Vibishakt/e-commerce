@@ -150,15 +150,15 @@ const Cart = () => {
     );
   } else {
     return (
-      <div className="relative flex justify-between flex-row w-full px-4 py-10 bg-teal-50">
-        <div className="w-[70%] ml-5">
+      <div className="relative flex flex-col w-full md:flex md:justify-betwee justify-center md:flex-row md:w-full px-4 py-10 bg-teal-50">
+        <div className="w-full md:w-[70%] ml-0 md:ml-5">
           <Heading
             label="My Cart Details"
-            className="text-[10px] md:text-[16px]  text-teal-900 font-bold p-2"
+            className="text-[8px] md:text-[16px]  text-teal-900 font-bold p-2"
           />
-          <table className=" table-fixed border border-r-2 w-full m-2 text-black">
+          <table className="table-fixed border border-r-2 w-full md:w-full m-2 text-black">
             <thead>
-              <tr className="border-b-2 p-2 text-left">
+              <tr className="border-b-2 p-2 text-left text-[8px] md:text-[16px]">
                 <th>Product</th>
                 <th>Title</th>
                 <th>Size</th>
@@ -168,7 +168,10 @@ const Cart = () => {
             </thead>
             <tbody>
               {myCart?.items?.map((val) => (
-                <tr className="text-left border border-x-2" key={val?._id}>
+                <tr
+                  className="text-left border border-x-2 text-[8px] md:text-[16px]"
+                  key={val?._id}
+                >
                   <td>
                     <img
                       onClick={() =>
@@ -179,7 +182,7 @@ const Cart = () => {
                           )}`
                         )
                       }
-                      className="w-[35%] p-2 cursor-pointer"
+                      className="w-[45%] md:w-[35%] p-2 cursor-pointer"
                       src={val?.imageUrl}
                     />
                   </td>
@@ -209,14 +212,14 @@ const Cart = () => {
               ))}
             </tbody>
           </table>
-          <div className="flex justify-between w-full">
+          <div className="flex justify-between w-full text-[8px] md:text-[16px]">
             <Heading
               label="Select Delivery Address"
-              className="text-lg font-bold text-teal-900 p-2"
+              className="text-[8px] md:text-[16px] font-bold text-teal-900 p-2"
             />
             <Button
               variant="gost"
-              className="text-center text-teal-900 font-bold w-[45%]"
+              className="text-center text-teal-900 font-bold md:w-[45%]"
               onClick={() =>
                 dispatch(
                   showDrawer({
@@ -234,7 +237,7 @@ const Cart = () => {
             <Drawer />
           </div>
           {addedList.length !== 0 && (
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid md:grid-cols-4 grid-cols-2 gap-4">
               {Array.isArray(addedList) &&
                 addedList?.map((addresses) => (
                   <AddressCard
@@ -243,7 +246,7 @@ const Cart = () => {
                     onClick={() => defaultAddress(addresses)}
                     className={
                       address === addresses?._id
-                        ? " text-emerald-950 font-semibold border-teal-900"
+                        ? " text-emerald-950 font-semibold text-[8px] md:text-[16px] border-teal-900"
                         : "hover:bg-slate-200"
                     }
                   />
@@ -251,10 +254,10 @@ const Cart = () => {
             </div>
           )}
         </div>
-        <div className="relative w-1/3 ml-5">
+        <div className="relative w-full text-[8px] md:text-[16px] md:w-1/3 ml-0 md:ml-5">
           <Heading
             label="Price Details"
-            className="text-lg font-bold text-teal-900 p-2"
+            className="text-[10px] md:text-[16px] font-bold text-teal-900 p-2"
           />
           <table className="w-[90%] table-fixed m-3">
             <tr className="text-black">
@@ -278,7 +281,7 @@ const Cart = () => {
               <td>₹{myCart?.totalCost}</td>
             </tr>
 
-            <hr className="boder-1 border-black w-[320px] m-2" />
+            <hr className="boder-1 border-black w-[190px] md:w-[320px] m-2" />
 
             <tr className="text-black font-bold">
               <td>Order Total:</td>
@@ -286,7 +289,7 @@ const Cart = () => {
             </tr>
           </table>
 
-          <div className="flex justify-center ml-10 p-4 w-[55%]">
+          <div className="flex justify-center ml-10 p-4 w-[55%] md:w-[55%]">
             <Button
               variant="primary"
               className="font-bold text-center w-full"

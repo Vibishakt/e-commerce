@@ -37,31 +37,39 @@ export const AddressCard = ({
   return (
     <div
       onClick={onClick}
-      className={`w-full h-[220px] border-2 rounded-xl shadow-md col-span-2 p-3 cursor-pointer ${className}`}
+      className={`w-[80%] md:w-full md:h-[220px] h-[120px] border-2 rounded-xl shadow-md col-span-2 md:p-3 p-1 cursor-pointer ${className}`}
     >
-      <div className="flex justify-between">
+      <div className="flex justify-between md:p-2 p-1">
         <Button
           variant="gost"
-          className="text-center text-teal-900 font-bold w-[12%]"
+          className="text-[10px] md:text-[16px] text-center text-teal-900 font-bold w-[12%]"
           onClick={() => editAddress(addressData)}
         >
           EDIT
         </Button>
         <DeleteIcon
-          className="cursor-pointer"
+          className="cursor-pointer md:w-[15px] md:h-[15px] w-[9px] h-[9px]"
           fill="red"
           onClick={() => deleteAddress(addressData._id)}
         />
       </div>
       <div className="m-1">
-        <p className="text-lg font-bold text-black p-2">{addressData.name}</p>
-        <p className="text-sm text-black p-1">
+        <p className="text-[10px] md:text-[16px] font-bold text-black p-1 md:p-2">
+          {addressData.name}
+        </p>
+        <p className="text-[8px] md:text-[16px] text-black md:p-1">
           {addressData.houseAddress},{addressData.locality},
           {addressData.district}
         </p>
-        <p className="text-sm text-black p-1">{addressData.state}</p>
-        <p className="text-sm text-black p-1">{addressData.pincode}</p>
-        <p className="text-sm text-black p-1">{addressData.phone}</p>
+        <p className="text-[8px] md:text-[16px] text-black md:p-1">
+          {addressData.state}
+        </p>
+        <p className="text-[8px] md:text-[16px] text-black md:p-1">
+          {addressData.pincode}
+        </p>
+        <p className="text-[8px] md:text-[16px] text-black md:p-1">
+          {addressData.phone}
+        </p>
       </div>
     </div>
   );
