@@ -37,17 +37,13 @@ const Cart = () => {
   const [buttonMode, setButtonMode] = useState("");
   const [searchParams] = useSearchParams();
 
-  const handleShowToast = (msg) => {
-    dispatch(toaster({ show: true, message: msg }));
-    setTimeout(() => dispatch(toaster({ show: false, message: "" })), 3000);
-  };
-
   function remove(items) {
     postJson(API_URL.CART.REMOVE_PRODUCT, { productId: items?._id }).then(
       (res) => {
-        handleShowToast(res?.message);
+        if (res.success)
+          dispatch(toaster({ show: true, message: res.message }));
         getData(API_URL.CART.MY_CART).then((res) => {
-          if (res?.data) {
+          if (res?.success) {
             setMyCart(res?.data);
             dispatch(cartQuantity(res?.data?.totalQty));
           } else {
@@ -66,9 +62,11 @@ const Cart = () => {
         amount: data?.totalCost * 100,
       };
       postJson(API_URL.CART.MAKE_PAYMENT, payload).then((res) => {
-        setClientSecret(res?.data?.client_secret);
-        setPaymentId(res?.data?.id);
-        setShowForm(true);
+        if (res.success) {
+          setClientSecret(res?.data?.client_secret);
+          setPaymentId(res?.data?.id);
+          setShowForm(true);
+        }
       });
     } else {
       alert("Please select the address");
@@ -106,15 +104,18 @@ const Cart = () => {
 
   useEffect(() => {
     getData(API_URL.CART.MY_CART).then((res) => {
-      if (res?.data) {
-        console.log("11111111", res);
+      console.log("2222222", res);
+      if (res?.success && res?.data) {
         dispatch(cartQuantity(res.data?.totalQty));
-        setMyCart(res.data);
+        setMyCart(res?.data);
         setAddress(res?.data?.address);
-      }
+      } else
+        dispatch(
+          toaster({ show: true, message: res.message, varient: "error" })
+        );
     });
     getData(API_URL.BUY.MY_ADDRESS).then((res) => {
-      if (res?.data) {
+      if (res?.success) {
         dispatch(addressList(res?.data));
       }
     });
@@ -153,7 +154,7 @@ const Cart = () => {
         <div className="w-[70%] ml-5">
           <Heading
             label="My Cart Details"
-            className="text-lg  text-teal-900 font-bold p-2"
+            className="text-[10px] md:text-[16px]  text-teal-900 font-bold p-2"
           />
           <table className=" table-fixed border border-r-2 w-full m-2 text-black">
             <thead>

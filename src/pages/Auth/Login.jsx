@@ -24,25 +24,21 @@ function Login() {
 
   const dispatch = useDispatch();
 
-  const handleShowToast = (msg) => {
-    dispatch(toaster({ show: true, message: msg }));
-    setTimeout(() => dispatch(toaster({ show: false, message: "" })), 3000);
-  };
   const onSubmit = async (data) => {
     const payload = {
       userMail: data?.email,
       userPassword: data?.password,
     };
     postJson(API_URL.USER.LOGIN, payload).then((res) => {
+      console.log("11111111", res);
       if (res) {
-        const { success, statusCode, data } = res;
+        const { success, statusCode, data, message } = res;
         if (success && statusCode === 200) {
           window.location.href = "/";
           localStorage.setItem("pvr-token", data);
-          handleShowToast(res?.message);
-        }
-      } else {
-        handleShowToast("Login Failed");
+          dispatch(toaster({ show: true, message: message }));
+        } else
+          dispatch(toaster({ show: true, message: message, varient: "error" }));
       }
     });
   };

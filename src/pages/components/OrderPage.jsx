@@ -84,14 +84,14 @@ const OrderPage = () => {
     });
   }, []);
   return (
-    <div className="flex justify-center w-full mt-3 bg-white">
+    <div className="flex justify-center w-full bg-white">
       <div className="w-[80%] mt-5">
         <div className="w-full p-2">
           <Heading
             label="My Orders"
             className="text-[25px] text-teal-900 font-bold pt-3"
           />
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col justify-center gap-2">
             {myOrder.map((data) => (
               <OrderCard
                 key={data._id}

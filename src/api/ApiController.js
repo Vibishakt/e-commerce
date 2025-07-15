@@ -24,16 +24,39 @@ axiosInstance.interceptors.request.use(
   }
 );
 
+function handleError(error) {
+  if (error.response) {
+    return {
+      statusCode: error.response.status,
+      success: false,
+      data: error.response.data,
+      message: error.response.data?.message || "Server Error",
+    };
+  } else if (error.request) {
+    return {
+      status: 0,
+      success: false,
+      message: "No response from server. Check your internet connection.",
+    };
+  } else {
+    return {
+      status: 0,
+      success: false,
+      message: error.message || "Unexpected error occurred",
+    };
+  }
+}
+
 export const getData = async (url, params = {}, config = {}) => {
   try {
     const response = await axiosInstance.get(url, {
       ...config,
       params,
     });
+    console.log("111111111", response);
     return response.data;
   } catch (error) {
-    const { response: { data = {} } = {} } = error;
-    return data;
+    return handleError(error);
   }
 };
 
@@ -48,8 +71,7 @@ export const postJson = async (url, data, config = {}) => {
     });
     return response.data;
   } catch (error) {
-    const { response: { data = {} } = {} } = error;
-    return data;
+    return handleError(error);
   }
 };
 export const postMultipart = async (url, formData, config = {}) => {
@@ -63,7 +85,7 @@ export const postMultipart = async (url, formData, config = {}) => {
     });
     return response.data;
   } catch (error) {
-    throw error.response || error;
+    return handleError(error);
   }
 };
 
@@ -78,7 +100,7 @@ export const putJson = async (url, data, config = {}) => {
     });
     return response.data;
   } catch (error) {
-    throw error.response || error;
+    return handleError(error);
   }
 };
 
@@ -93,7 +115,7 @@ export const putMultipart = async (url, formData, config = {}) => {
     });
     return response.data;
   } catch (error) {
-    throw error.response || error;
+    return handleError(error);
   }
 };
 
@@ -107,6 +129,6 @@ export const deleteData = async (url, dataOrParams = {}, config = {}) => {
     });
     return response.data;
   } catch (error) {
-    throw error.response || error;
+    return handleError(error);
   }
 };

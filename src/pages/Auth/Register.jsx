@@ -20,12 +20,6 @@ function Register() {
     resolver: yupResolver(registerSchema),
   });
   const dispatch = useDispatch();
-
-  const handleShowToast = (msg) => {
-    dispatch(toaster({ show: true, message: msg }));
-    setTimeout(() => dispatch(toaster({ show: false, message: "" })), 3000);
-  };
-
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
@@ -38,12 +32,12 @@ function Register() {
     };
     postJson(API_URL.USER.REGISTER, payload).then((data) => {
       if (data) {
-        const { success, statusCode } = data;
+        const { success, statusCode, message } = data;
         if (success && statusCode === 200) {
-          handleShowToast(data?.message);
+          dispatch(toaster({ show: true, message: message }));
           navigate("/login");
         } else {
-          handleShowToast(data?.message);
+          dispatch(toaster({ show: true, message: message, varient: "error" }));
         }
       }
     });

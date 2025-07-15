@@ -14,11 +14,6 @@ const ProductView = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleShowToast = (msg) => {
-    dispatch(toaster({ show: true, message: msg }));
-    setTimeout(() => dispatch(toaster({ show: false, message: "" })), 3000);
-  };
-
   function addToCart(type) {
     if (
       (product?.product_details?.size?.length > 0 && size) ||
@@ -31,9 +26,9 @@ const ProductView = () => {
       };
       postJson(API_URL.CART.ADD_PRODUCT, payload).then((res) => {
         if (res) {
-          const { success, statusCode = "" } = res;
+          const { success, statusCode = "", message } = res;
           if (success && statusCode === 200) {
-            handleShowToast(res?.message);
+            dispatch(toaster({ show: true, message: message }));
 
             getData(API_URL.CART.MY_CART).then((res) => {
               dispatch(cartQuantity(res?.data?.totalQty));
@@ -41,18 +36,30 @@ const ProductView = () => {
                 navigate(`/${WEB_URL.CART}`);
               }
             });
+          } else {
+            if ([401, 403, "401", "403"].includes(statusCode)) {
+              navigate(`/${WEB_URL.USER.LOGIN}`);
+            } else
+              dispatch(
+                toaster({ show: true, message: res.message, varient: "error" })
+              );
           }
         }
       });
     } else {
-      handleShowToast("Please select the size");
+      alert("Please select the size");
     }
   }
   useEffect(() => {
     if (productId) {
       getData(API_URL.PRODUCT.BY_ID.replace(":productId", productId)).then(
         (res) => {
-          setProduct(res?.data);
+          if (res.success) {
+            setProduct(res?.data);
+          } else
+            dispatch(
+              toaster({ show: true, message: res.message, varient: "error" })
+            );
         }
       );
     }

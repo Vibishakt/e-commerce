@@ -17,7 +17,7 @@ export const CheckoutForm = ({ className = "", paymentId, base_url }) => {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${base_url}?paymentId=${paymentId}`,
+        return_url: `${base_url}/cart?paymentId=${paymentId}`,
       },
     });
 
