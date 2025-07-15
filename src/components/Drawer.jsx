@@ -23,7 +23,7 @@ function Drawer() {
   return (
     <div
       style={{ width }}
-      className={`fixed p-2 top-[5rem] rounded-md right-0 bg-white shadow-lg h-[80%] delay-200 transition-transform transform ${
+      className={`fixed p-2 z-10 top-[5rem] rounded-md right-0 bg-white shadow-lg h-[80%] delay-200 transition-transform transform ${
         show ? "translate-x-0" : "translate-x-full"
       }`}
     >

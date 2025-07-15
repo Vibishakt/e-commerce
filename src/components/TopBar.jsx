@@ -97,7 +97,7 @@ const TopBar = () => {
             />
 
             {count && count !== 0 && (
-              <div className="w-[12px] h-[12px] bg-red-700 text-teal-950 justify-center text-[8px] border-1 rounded-[35px] flex -mt-7 ml-4">
+              <div className="w-[12px] h-[12px] bg-red-700 text-white justify-center text-[8px] border-1 rounded-[35px] flex -mt-7 ml-4">
                 {count}
               </div>
             )}
