@@ -13,11 +13,11 @@ const FormController = ({
     " peer border-0 border-b-2 border-teal-700 bg-transparent pt-3 md:pt-5 pb-1 peer focus:outline-none focus:ring-0";
 
   return (
-    <div className="  relative flex flex-col mb-4 border-none">
+    <div className="relative flex flex-col mb-4 border-none">
       {type !== "checkbox" && (
         <label
           htmlFor={name}
-          className="absolute left-0 top-1 text-gray-500 text-sm peer-placeholder-shown:top-1 peer-placeholder-shown:text-base peer-placeholder-shown:bg-emerald-500 peer-focus:top-1 peer-focus:text-xs peer-focus:divide-sky-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+          className="absolute left-0 top-1 text-gray-500 md:text-sm text-[10px] peer-placeholder-shown:top-1 peer-placeholder-shown:text-base peer-placeholder-shown:bg-emerald-500 peer-focus:top-1 peer-focus:text-xs peer-focus:divide-sky-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
         >
           {label}
         </label>

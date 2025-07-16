@@ -104,7 +104,6 @@ const Cart = () => {
 
   useEffect(() => {
     getData(API_URL.CART.MY_CART).then((res) => {
-      console.log("2222222", res);
       if (res?.success && res?.data) {
         dispatch(cartQuantity(res.data?.totalQty));
         setMyCart(res?.data);
@@ -130,17 +129,17 @@ const Cart = () => {
 
   if (Object.keys(myCart).length === 0) {
     return (
-      <div className="flex flex-col p-3 gap-10 w-full bg-teal-100">
-        <div className="flex justify-center">
-          <EmptyCart className="relative items-center w-full" />
-          <h2 className="absolute font-bold text-black text-lg text-center bottom-64">
+      <div className="flex flex-col p-3 gap-10 w-full bg-teal-50">
+        <div className="flex justify-center mt-10">
+          <EmptyCart className="relative md:w-full w-full md:h-[250px] h-[150px] items-center" />
+          <h2 className="absolute font-bold text-black text-[8px] md:text-lg text-center mt-28 md:mt-44">
             Cart is Empty
           </h2>
         </div>
         <div className="flex justify-center">
           <Button
             variant="primary"
-            className="font-bold w-[15%]"
+            className="text-[8px] md:text-[15px] font-bold w-[35%] md:w-[15%]"
             onClick={() => (window.location.href = "/")}
           >
             Start Shopping
@@ -226,7 +225,7 @@ const Cart = () => {
                     show: true,
                     content: "address",
                     title: "ADD DELIVERY ADDRESS",
-                    width: "400px",
+                    className: "md:w-[400px] w-[250px]",
                     addressData: null,
                   })
                 )

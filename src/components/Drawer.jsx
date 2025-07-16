@@ -9,7 +9,7 @@ function Drawer() {
   const {
     content = "",
     title = "",
-    width = "400px",
+    className = "",
     show = false,
     addressData = {},
   } = useSelector(getShowDrawer);
@@ -22,8 +22,7 @@ function Drawer() {
   if (!show) return null;
   return (
     <div
-      style={{ width }}
-      className={`fixed p-2 z-10 top-[5rem] rounded-md w-[100px] md:[400px] right-0 bg-white shadow-lg h-[50%] md:h-[80%] delay-200 transition-transform transform ${
+      className={`fixed p-2 z-10 top-[5rem] rounded-md w-[100px] md:[400px] right-0 bg-white shadow-lg h-[50%] md:h-[80%] delay-200 transition-transform ${className} transform ${
         show ? "translate-x-0" : "translate-x-full"
       }`}
     >
@@ -34,7 +33,7 @@ function Drawer() {
               show: false,
               content: "",
               title: null,
-              width: null,
+              className: null,
               addressData: null,
             })
           )
@@ -45,7 +44,7 @@ function Drawer() {
         label={title}
         className="text-[10px] md:text-[15px] text-center font-bold pb-3"
       />
-      <div className="flex w-[50%] md:w-full overflow-y-auto h-[78%]">
+      <div className="flex w-full md:w-full overflow-y-auto h-[78%]">
         {Map ? <Map addressData={addressData} /> : null}
       </div>
     </div>

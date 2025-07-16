@@ -9,7 +9,7 @@ const initialState = {
   showDrawer: {
     content: "",
     title: "",
-    width: "400px",
+    className: "",
     show: false,
     addressData: {},
   },

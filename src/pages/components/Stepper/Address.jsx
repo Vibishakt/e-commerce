@@ -54,7 +54,7 @@ const Address = ({ addressData = {} }) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-[35%] md:w-full items-center text-slate-900 rounded-lg shadow-md p-1 overflow-y-auto"
+      className="w-full md:w-full items-center text-slate-900 rounded-lg shadow-md p-1 overflow-y-auto"
     >
       <Heading
         label="Contact Details"
