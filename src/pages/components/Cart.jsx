@@ -158,7 +158,7 @@ const Cart = () => {
           />
           <table className="table-fixed border border-r-2 w-full md:w-full m-2 text-black">
             <thead>
-              <tr className="border-b-2 p-2 text-left text-[8px] md:text-[16px]">
+              <tr className="border-b-2 p-2 text-left text-[10px] md:text-[16px]">
                 <th>Product</th>
                 <th>Title</th>
                 <th>Size</th>
@@ -169,7 +169,7 @@ const Cart = () => {
             <tbody>
               {myCart?.items?.map((val) => (
                 <tr
-                  className="text-left border border-x-2 text-[8px] md:text-[16px]"
+                  className="text-left border border-x-2 text-[10px] md:text-[16px]"
                   key={val?._id}
                 >
                   <td>
@@ -182,7 +182,7 @@ const Cart = () => {
                           )}`
                         )
                       }
-                      className="w-[45%] md:w-[35%] p-2 cursor-pointer"
+                      className="w-[55%] md:w-[35%] p-2 cursor-pointer"
                       src={val?.imageUrl}
                     />
                   </td>
@@ -212,7 +212,7 @@ const Cart = () => {
               ))}
             </tbody>
           </table>
-          <div className="flex justify-between w-full text-[8px] md:text-[16px]">
+          <div className="flex justify-between w-full text-[10px] md:text-[16px]">
             <Heading
               label="Select Delivery Address"
               className="text-[8px] md:text-[16px] font-bold text-teal-900 p-2"

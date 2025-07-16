@@ -37,9 +37,9 @@ export const AddressCard = ({
   return (
     <div
       onClick={onClick}
-      className={`w-[80%] md:w-full md:h-[220px] h-[120px] border-2 rounded-xl shadow-md col-span-2 md:p-3 p-1 cursor-pointer ${className}`}
+      className={`w-[80%] md:w-full md:h-[220px] h-[120px] border-2 rounded-xl shadow-md col-span-2 md:p-1 p-1 cursor-pointer ${className}`}
     >
-      <div className="flex justify-between md:p-2 p-1">
+      <div className="flex justify-between md:p-1 p-1">
         <Button
           variant="gost"
           className="text-[10px] md:text-[16px] text-center text-teal-900 font-bold w-[12%]"

@@ -16,15 +16,20 @@ export const Popup = ({ className = "" }) => {
 
   if (!show) return null;
   return (
-    <div
-      className={`show? w-full fixed flex justify-center h-full top-0 ${className}`}
-    >
-      <div className="flex flex-col justify-center bg-white w-[40%] h-[40%] mt-40 border-1 rounded-lg shadow-2xl gap-5">
-        <div className="text-black text-center font-bold">{title}</div>
-        <div className="text-black text-center font-semibold">{content}</div>
+    <div className="w-full fixed flex justify-center h-full top-0">
+      <div
+        className={`show? flex flex-col justify-center bg-white w-[60%] md:w-[40%] md:h-[40%] h-[18%] mt-40 border-1 rounded-lg shadow-2xl gap-5 ${className}`}
+      >
+        <div className="text-black text-[15px] md:text-[20px] text-center font-bold">
+          {title}
+        </div>
+        <div className="text-black text-[10px] md:text-[15px] text-center font-semibold">
+          {content}
+        </div>
         <div className="flex justify-center gap-5">
           <Button
             varient="primary"
+            className="md:w-[20%] w-[30%] md:h-full h-[90%] text-[8px] md:text-[18px]"
             onClick={() =>
               dispatch(
                 showPopup({

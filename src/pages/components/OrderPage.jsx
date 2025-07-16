@@ -18,34 +18,49 @@ const OrderCard = ({
 
   return (
     <div
-      className={`flex flex-col justify-between gap-3 w-full h-auto px-5 py-10 border-2 rounded-md bg-teal-50 ${className}`}
+      className={`flex flex-col justify-between gap-4 md:gap-3 w-full h-auto px-5 py-10 border-2 rounded-md bg-teal-50 ${className}`}
     >
       <div className="flex flex-row justify-between border-black border-b rounded-sm p-1 w-full -mt-7">
         <div className="flex flex-col gap-1">
-          <h3 className="text-teal-900 font-bold">Order Number</h3>
-          <p className="text-black">{orderNumber}</p>
+          <h3 className="text-teal-900 text-[10px] md:text-[15px] font-bold">
+            Order Number
+          </h3>
+          <p className="text-black text-[10px] md:text-[15px]">{orderNumber}</p>
         </div>
         <div className="flex flex-col gap-1">
-          <h3 className="text-teal-900 font-bold">Order Date</h3>
-          <p className="text-black">{orderDate}</p>
+          <h3 className="text-teal-900 font-bold text-[10px] md:text-[15px]">
+            Order Date
+          </h3>
+          <p className="text-black text-[10px] md:text-[15px]">{orderDate}</p>
         </div>
         <div className="flex flex-col gap-1">
-          <h3 className="text-teal-900 font-bold">Delivery Status</h3>
+          <h3 className="text-teal-900 font-bold text-[10px] md:text-[15px]">
+            Delivery Status
+          </h3>
 
-          <p className="text-sm text-black">{deliveryStatus}</p>
+          <p className="text-black text-[10px] md:text-[15px]">
+            {deliveryStatus}
+          </p>
         </div>
         <div className="flex flex-col gap-1">
-          <h3 className="text-teal-900 font-bold">Delivery Expected by</h3>
-          <p className="text-sm text-black">{deliveryExpected}</p>
+          <h3 className="text-teal-900 font-bold text-[10px] md:text-[15px]">
+            Delivery Expected by
+          </h3>
+          <p className="text-black text-[10px] md:text-[15px]">
+            {deliveryExpected}
+          </p>
         </div>
       </div>
 
-      <div className="flex flex-row">
+      <div className="flex md:flex-row flex-col">
         <div className="flex flex-col gap-5 w-full">
           {items.map((item, index) => (
-            <div key={index} className="flex gap-14">
-              <img className="w-[90px] h-[100px] p-2" src={item.imageUrl} />
-              <div className="flex flex-col gap-2 w-[40%] justify-center">
+            <div key={index} className="flex gap-3 md:gap-14">
+              <img
+                className="w-[50px] h-[60px] md:w-[90px] md:h-[100px] p-2"
+                src={item.imageUrl}
+              />
+              <div className="flex flex-col gap-2 w-[70%] md:w-[40%] justify-center">
                 <h4
                   onClick={() =>
                     navigate(
@@ -55,20 +70,28 @@ const OrderCard = ({
                       )}`
                     )
                   }
-                  className="text-black text-sm font-semibold cursor-pointer hover:font-bold"
+                  className="text-black text-[10px] md:text-[15px] font-semibold cursor-pointer hover:font-bold"
                 >
                   {item.title}
                 </h4>
-                <p className="text-xs text-teal-800 font-bold">₹{item.price}</p>
-                <p className="text-black text-sm">Size: {item.size}</p>
-                <p className="text-black text-sm">Qty: {item.qty}</p>
+                <p className="text-[10px] md:text-[15px] text-teal-800 font-bold">
+                  ₹{item.price}
+                </p>
+                <p className="text-black text-[10px] md:text-[15px]">
+                  Size: {item.size}
+                </p>
+                <p className="text-black text-[10px] md:text-[15px]">
+                  Qty: {item.qty}
+                </p>
               </div>
             </div>
           ))}
         </div>
-        <div className="flex flex-col gap-2 w-[60%]">
-          <h3 className="text-teal-900 font-bold">Shipping address</h3>
-          <p className="text-sm text-black">{address}</p>
+        <div className="flex flex-col gap-2 w-[90%] md:w-[60%]">
+          <h3 className="text-teal-900 md:pt-1 pt-2 font-bold text-[10px] md:text-[15px]">
+            Shipping address
+          </h3>
+          <p className="text-[10px] md:text-[15px] text-black">{address}</p>
         </div>
       </div>
     </div>
@@ -84,14 +107,14 @@ const OrderPage = () => {
     });
   }, []);
   return (
-    <div className="flex justify-center w-full bg-white">
-      <div className="w-[80%] mt-5">
+    <div className="flex justify-center w-full md:w-full bg-white">
+      <div className="w-full md:w-[80%] mt-3 md:mt-5">
         <div className="w-full p-2">
           <Heading
             label="My Orders"
-            className="text-[25px] text-teal-900 font-bold pt-3"
+            className="text-[18px] md:text-[25px] text-teal-900 font-bold pt-3"
           />
-          <div className="flex flex-col justify-center gap-2">
+          <div className="flex flex-col justify-center gap-3 md:gap-2">
             {myOrder.map((data) => (
               <OrderCard
                 key={data._id}

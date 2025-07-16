@@ -5,7 +5,7 @@ import Button from "components/Button";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { cartQuantity, toaster } from "redux/slice";
+import { cartQuantity, showPopup, toaster } from "redux/slice";
 
 const ProductView = () => {
   const { productId = "" } = useParams();
@@ -47,7 +47,15 @@ const ProductView = () => {
         }
       });
     } else {
-      alert("Please select the size");
+      dispatch(
+        showPopup({
+          title: "Oops! Size is required",
+          content: "Please select the size",
+          show: true,
+          type: null,
+          onButtonClick: () => {},
+        })
+      );
     }
   }
   useEffect(() => {

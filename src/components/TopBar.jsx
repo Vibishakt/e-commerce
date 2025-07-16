@@ -13,6 +13,8 @@ import { cartQuantity } from "redux/slice";
 
 const TopBar = () => {
   const [toggleBtn, setToggleBtn] = useState(false);
+  const [categoryBtn, setCategoryBtn] = useState(false);
+  const [activeBtn, setActiveBtn] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { Name = "" } = getUserDetails();
@@ -30,7 +32,7 @@ const TopBar = () => {
     <>
       <div className="bg-teal-50 w-full border-b fixed top-0 justify-between flex px-4 py-2 z-50 shadow-xl">
         <div>
-          <img className="w-[25%]" src={Logo_name} alt="Logo_name" />
+          <img className="w-[45%] md:w-[25%]" src={Logo_name} alt="Logo_name" />
         </div>
 
         <div className="hidden md:flex gap-x-6 ">
@@ -136,69 +138,154 @@ const TopBar = () => {
             )}
           </div>
         </div>
+
+        <div className="md:hidden block w-[40px] align-middle mt-1">
+          <CartIcon
+            className="cursor-pointer w-[18px] h-[18px]"
+            onClick={() => {
+              if (token) {
+                navigate(WEB_URL.CART);
+              } else {
+                navigate(WEB_URL.USER.LOGIN);
+              }
+            }}
+          />
+
+          {count && count !== 0 && (
+            <div className="w-[8px] h-[8px] bg-red-700 text-white justify-center text-[5px] border-1 rounded-[35px] flex -mt-5 ml-3">
+              {count}
+            </div>
+          )}
+        </div>
         <img
           onClick={() => setToggleBtn(!toggleBtn)}
-          className="relative group block md:hidden mx-14 h-4 w-4"
+          className="relative group block md:hidden mx-4 mt-1 h-4 w-4"
           src={menu}
           alt="toggle"
         />
       </div>
       {toggleBtn && (
-        <div className="absolute right-0 grid border rounded-md bg-teal-100 z-50 p-2 top-10 text-center h-[25%] w-[40%] text-zinc-700 group-hover:block md:hidden">
-          <a href="/" className="text-gray-600 hover:text-black">
+        <div className="absolute right-0 border rounded-md bg-teal-100 z-50 gap-3 p-3 top-14 text-center w-[40%] text-zinc-700 md:hidden">
+          <a
+            href="/"
+            onClick={() => setActiveBtn("shop")}
+            className={`block py-2 ${
+              activeBtn === "shop"
+                ? "font-bold bg-slate-200 rounded-md"
+                : "text-zinc-700"
+            }`}
+          >
             Shop
           </a>
-          <div className="relative group hover:block">
-            <button className="cursor-pointer focus:outline-none p-2 text-gray-600 hover:text-black">
+
+          <div className="text-left py-2">
+            <button
+              onClick={() => {
+                setCategoryBtn(!categoryBtn);
+                setActiveBtn("category");
+              }}
+              className={`w-full ${
+                activeBtn === "category"
+                  ? "font-bold  bg-slate-200 rounded-md"
+                  : "text-zinc-700"
+              }`}
+            >
               Category
             </button>
-            <ul className="absolute right-28 -mt-16 bg-white text-black rounded-lg shadow-lg hover:bg-gray-200 hidden group-hover:block">
-              <li>
-                <a
-                  href="/category/mens"
-                  className="block px-4 py-2 hover:bg-gray-400"
-                >
-                  Mens
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/category/womens"
-                  className="block px-4 py-2 hover:bg-gray-400"
-                >
-                  Women
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/category/footwear"
-                  className="block px-4 py-2 hover:bg-gray-400"
-                >
-                  Footwear
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/category/bags"
-                  className="block px-4 py-2 hover:bg-gray-400"
-                >
-                  Bags
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/category/beauty-products"
-                  className="block px-4 py-2 hover:bg-gray-400"
-                >
-                  Beauty Products
-                </a>
-              </li>
-            </ul>
+
+            {categoryBtn && (
+              <ul className="left-0 mt-2 w-38 bg-white text-black rounded-lg shadow-lg z-50">
+                <li>
+                  <a
+                    href="/category/mens"
+                    onClick={() => setActiveBtn("mens")}
+                    className={`block px-4 py-2 ${
+                      activeBtn === "mens"
+                        ? "font-bold  bg-slate-200 rounded-md"
+                        : "text-zinc-700"
+                    }`}
+                  >
+                    Mens
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/category/womens"
+                    onClick={() => setActiveBtn("women")}
+                    className={`block px-4 py-2 ${
+                      activeBtn === "women"
+                        ? "font-bold  bg-slate-200 rounded-md"
+                        : "text-zinc-700"
+                    }`}
+                  >
+                    Women
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/category/footwear"
+                    onClick={() => setActiveBtn("footwear")}
+                    className={`block px-4 py-2 ${
+                      activeBtn === "footwear"
+                        ? "font-bold  bg-slate-200 rounded-md"
+                        : "text-zinc-700"
+                    }`}
+                  >
+                    Footwear
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/category/bags"
+                    onClick={() => setActiveBtn("bags")}
+                    className={`block px-4 py-2 ${
+                      activeBtn === "bags"
+                        ? "font-bold  bg-slate-200 rounded-md"
+                        : "text-zinc-700"
+                    }`}
+                  >
+                    Bags
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/category/beauty-products"
+                    onClick={() => setActiveBtn("beauty")}
+                    className={`block px-4 py-2 ${
+                      activeBtn === "beauty"
+                        ? "font-bold  bg-slate-200 rounded-md"
+                        : "text-zinc-700"
+                    }`}
+                  >
+                    Beauty Products
+                  </a>
+                </li>
+              </ul>
+            )}
           </div>
 
-          <button>
-            <a href="/login">Login</a>
-          </button>
+          <a
+            href={WEB_URL.ORDER.PLACE_ORDER}
+            onClick={() => setActiveBtn("order")}
+            className={`block py-2 cursor-pointer focus:outline-none ${
+              activeBtn === "order"
+                ? "font-bold  bg-slate-200 rounded-md"
+                : "text-zinc-700"
+            }`}
+          >
+            My Order
+          </a>
+          <a
+            href="/login"
+            onClick={() => setActiveBtn("login")}
+            className={`block py-2 cursor-pointer focus:outline-none ${
+              activeBtn === "login"
+                ? "font-bold  bg-slate-200 rounded-md"
+                : "text-zinc-700"
+            }`}
+          >
+            Login
+          </a>
         </div>
       )}
     </>

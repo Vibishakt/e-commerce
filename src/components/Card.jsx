@@ -31,26 +31,26 @@ const Card = ({
           src={url}
           alt=""
         />
-        <div className=" h-[80px] md:h-[120px] bottom-3 bg-white rounded-md p-2 left-2">
-          <h4 className="text-xs md:text-lg align-center text-slate-950 font-bold w-[160px] whitespace-normal overflow-hidden text-ellipsis md:whitespace-nowrap">
+        <div className=" h-[70px] md:h-[120px] bottom-1 md:bottom-0 bg-white rounded-md p-2 md:p-2 left-0 md:left-2">
+          <h4 className="text-[8px] md:text-lg align-center text-slate-950 font-bold w-[160px] whitespace-normal overflow-hidden text-ellipsis md:whitespace-nowrap">
             {title}
           </h4>
-          <p className="text-xs md:text-lg text-center  text-slate-950 font-normal">
+          <p className="text-[6px] md:text-lg text-center  text-slate-950 font-normal">
             {description}
           </p>
-          <p className="text-xs md:text-lg text-left  text-teal-800 font-bold">
+          <p className="text-[6px] md:text-lg text-left  text-teal-800 font-bold">
             ₹{price}
           </p>
-          <p className="text-left p-1 justify-center text-[8px] md:text-xs w-[55%] md:w-[55%] text-slate-950 font-bold border rounded-lg bg-slate-400">
+          <p className="text-left p-1 justify-center text-[6px] md:text-xs w-[40%] md:w-[55%] text-slate-950 font-bold border rounded-lg bg-slate-400">
             {deliveryStatus}
           </p>
-          <div className="flex flex-row md:p-2 md:gap-3 p-1 gap-1 items-center">
+          <div className="flex flex-row md:p-2 md:gap-3 gap-1 items-center">
             <div className="flex px-1 items-center gap-1 text-white border rounded-xl bg-green-700">
-              <p className="text-[8px] md:text-xs">{ratings}</p>
+              <p className="text-[6px] md:text-xs">{ratings}</p>
               <RatingImg />
             </div>
             &ensp;
-            <p className="text-[8px] md:text-xs text-slate-950 font-normal">
+            <p className="text-[6px] md:text-xs text-slate-950 font-normal">
               <span className="font-bold text-slate-700">{reviews} </span>{" "}
               Review
             </p>

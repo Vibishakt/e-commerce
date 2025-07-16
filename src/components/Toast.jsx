@@ -23,7 +23,7 @@ export const Toast = () => {
   }, [show]);
 
   const getBg = (varity) => {
-    if (varity === "info") return "bg-blue-300";
+    if (varity === "info") return "bg-sky-200";
     if (varity === "error") return "bg-red-300";
     if (varity === "warning") return "bg-orange-300";
     return "bg-teal-300";

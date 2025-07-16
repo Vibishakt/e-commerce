@@ -49,20 +49,20 @@ function Womens() {
   };
   if (womensProd.length === 0) {
     return (
-      <div className="w-full h-full flex flex-col justify-center p-5 gap-3 bg-teal-100">
+      <div className="w-full h-full flex flex-col justify-center p-5 gap-3 bg-teal-50">
         <div className="flex flex-col mt-5 p-3 items-center">
-          <EmptyProduct />
-          <h2 className="text-[25px] font-bold text-teal-900">
+          <EmptyProduct className="md:w-[150px] w-[90px] md:h-[150px] h-[90px]" />
+          <h2 className="text-[15px] md:text-[25px] font-bold text-teal-900">
             No Products Found
           </h2>
-          <h4 className="text-md font-semibold text-teal-900">
+          <h4 className="text-[10px] md:text-md font-semibold text-teal-900">
             The page you are looking for could not be found.
           </h4>
         </div>
         <div className="flex justify-center">
           <Button
             variant="primary"
-            className="font-bold w-[15%]"
+            className="text-[8px] md:text-[15px] font-bold w-[35%] md:w-[15%]"
             onClick={() => (window.location.href = "/")}
           >
             Back to Home
