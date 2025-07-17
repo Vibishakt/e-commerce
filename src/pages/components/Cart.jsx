@@ -45,6 +45,7 @@ const Cart = () => {
         getData(API_URL.CART.MY_CART).then((res) => {
           if (res?.success) {
             setMyCart(res?.data);
+
             dispatch(cartQuantity(res?.data?.totalQty));
           } else {
             setMyCart({});
@@ -294,7 +295,6 @@ const Cart = () => {
               className="font-bold text-center w-full"
               onClick={() => {
                 if (buttonMode === "order" && paymentIdFromUrl) {
-                  console.log("1111", paymentIdFromUrl);
                   placeOrder(myCart, paymentIdFromUrl);
                 } else {
                   makePayment(myCart, addedList);

@@ -116,16 +116,17 @@ const TopBar = () => {
                 <a href="/login">Login</a>
               )}
             </Button>
-            {Name && (
-              <ul className="absolute right-0 p-5 top-[40px] w-18 bg-teal-100 text-black rounded-lg shadow-lg hidden group-hover:block">
-                <li>
-                  <a
-                    href={WEB_URL.ORDER.PLACE_ORDER}
-                    className="cursor-pointer focus:outline-none p-3 text-gray-600 hover:text-black hover:font-bold"
-                  >
-                    My Order
-                  </a>
-                </li>
+
+            <ul className="absolute items-center right-0 p-6 top-[40px] w-28 bg-teal-100 text-black rounded-lg shadow-lg hidden group-hover:block">
+              <li>
+                <a
+                  href={WEB_URL.ORDER.PLACE_ORDER}
+                  className="cursor-pointer focus:outline-none p-2 text-gray-600 hover:text-black hover:font-bold"
+                >
+                  MyOrder
+                </a>
+              </li>
+              {Name && (
                 <li>
                   <button
                     className="cursor-pointer focus:outline-none p-3 text-gray-600 hover:text-black hover:font-bold"
@@ -134,8 +135,8 @@ const TopBar = () => {
                     Logout
                   </button>
                 </li>
-              </ul>
-            )}
+              )}
+            </ul>
           </div>
         </div>
 

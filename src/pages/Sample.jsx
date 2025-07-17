@@ -51,8 +51,6 @@ const Sample = () => {
   const [user, setUser] = useState(null);
   const { id = "" } = useParams();
 
-  console.log("1111111", id, user);
-
   useEffect(() => {
     // Example API endpoint, replace with your actual API if needed
     if (id) {

@@ -30,7 +30,6 @@ function Login() {
       userPassword: data?.password,
     };
     postJson(API_URL.USER.LOGIN, payload).then((res) => {
-      console.log("11111111", res);
       if (res) {
         const { success, statusCode, data, message } = res;
         if (success && statusCode === 200) {

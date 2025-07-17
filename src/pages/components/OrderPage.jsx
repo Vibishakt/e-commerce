@@ -1,8 +1,12 @@
 import { getData } from "api/ApiController";
 import { API_URL, WEB_URL } from "api/urls";
+import { EmptyProduct } from "assets/icons/Svg";
+import Button from "components/Button";
 import Heading from "components/Heading";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toaster } from "redux/slice";
 import { deliveryDate, formatDate } from "utils/common";
 
 const OrderCard = ({
@@ -100,37 +104,68 @@ const OrderCard = ({
 
 const OrderPage = () => {
   const [myOrder, setMyOrder] = useState([]);
+  const dispatch = useDispatch();
   useEffect(() => {
     getData(API_URL.CART.MY_ORDER).then((res) => {
-      setMyOrder(res?.data);
-      console.log("22222", res.data);
+      if (res.success) {
+        setMyOrder(res?.data);
+      } else
+        dispatch(
+          toaster({ show: true, message: res.message, varient: "error" })
+        );
     });
   }, []);
-  return (
-    <div className="flex justify-center w-full md:w-full bg-white">
-      <div className="w-full md:w-[80%] mt-3 md:mt-5">
-        <div className="w-full p-2">
-          <Heading
-            label="My Orders"
-            className="text-[18px] md:text-[25px] text-teal-900 font-bold pt-3"
-          />
-          <div className="flex flex-col justify-center gap-3 md:gap-2">
-            {myOrder.map((data) => (
-              <OrderCard
-                key={data._id}
-                orderNumber={data.orderId}
-                items={data.items}
-                address={data.address}
-                deliveryStatus={data.deliveryStatus}
-                orderDate={formatDate(data.createdAt)}
-                deliveryExpected={deliveryDate(data.createdAt)}
-              />
-            ))}
+
+  if (myOrder.length === 0) {
+    return (
+      <div className="w-full h-full flex flex-col justify-center p-5 gap-3 bg-teal-50">
+        <div className="flex flex-col mt-5 p-3 items-center">
+          <EmptyProduct className="md:w-[150px] w-[90px] md:h-[150px] h-[90px]" />
+          <h2 className="text-[15px] md:text-[25px] font-bold text-teal-900">
+            No orders Found in this page
+          </h2>
+          <h4 className="text-[10px] md:text-[12px] font-semibold text-teal-900">
+            Looks like you have not made any orders yet
+          </h4>
+        </div>
+        <div className="flex justify-center">
+          <Button
+            variant="primary"
+            className="text-[8px] md:text-[15px] font-bold w-[35%] md:w-[15%]"
+            onClick={() => (window.location.href = "/")}
+          >
+            Back to Home
+          </Button>
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <div className="flex justify-center w-full md:w-full bg-white">
+        <div className="w-full md:w-[80%] mt-3 md:mt-5">
+          <div className="w-full p-2">
+            <Heading
+              label="My Orders"
+              className="text-[18px] md:text-[25px] text-teal-900 font-bold pt-3"
+            />
+            <div className="flex flex-col justify-center gap-3 md:gap-2">
+              {myOrder.map((data) => (
+                <OrderCard
+                  key={data._id}
+                  orderNumber={data.orderId}
+                  items={data.items}
+                  address={data.address}
+                  deliveryStatus={data.deliveryStatus}
+                  orderDate={formatDate(data.createdAt)}
+                  deliveryExpected={deliveryDate(data.createdAt)}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default OrderPage;

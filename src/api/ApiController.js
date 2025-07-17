@@ -53,7 +53,6 @@ export const getData = async (url, params = {}, config = {}) => {
       ...config,
       params,
     });
-    console.log("111111111", response);
     return response.data;
   } catch (error) {
     return handleError(error);

@@ -23,7 +23,6 @@ function Register() {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    console.log(data);
     const payload = {
       userName: data?.name,
       userMail: data?.email,
