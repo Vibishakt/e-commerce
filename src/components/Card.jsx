@@ -24,10 +24,10 @@ const Card = ({
         className={`relative 
           ${
             navigate ? "cursor-pointer" : ""
-          } w-[150px] md:w-[200px] p-2 rounded-xl shadow-md shadow-gray-700 hover:scale-95 transition-all ease-in-out duration-300 bg-white  ${className}`}
+          } w-[165px] md:w-[200px] p-2 rounded-xl shadow-md shadow-gray-700 hover:scale-95 transition-all ease-in-out duration-300 bg-white  ${className}`}
       >
         <img
-          className=" rounded-lg h-[150px] md:h-[270px] object-cover"
+          className=" rounded-lg h-[160px] md:h-[270px] object-cover"
           src={url}
           alt=""
         />

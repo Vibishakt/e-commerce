@@ -43,8 +43,8 @@ function Register() {
     });
   };
   return (
-    <div className=" flex flex-col md:flex-row justify-center w-full p-3 md:p-5 md:mt-5 md:gap-5 bg-teal-50">
-      <div className="md:h-[300px] md:w-1/3">
+    <div className=" flex flex-col md:flex-row justify-center w-full p-3 md:p-5 md:mt-5 gap-10 md:gap-5 bg-teal-50">
+      <div className="md:h-[300px] mt-8 md:w-1/3">
         <RegisterImg />
       </div>
       <form

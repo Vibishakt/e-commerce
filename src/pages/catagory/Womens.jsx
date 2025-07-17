@@ -99,7 +99,7 @@ function Womens() {
               selectedItems={getSelectedItem}
             />
           </div>
-          <div className="md:overflow-hidden sm:overflow-x-auto gap-x-20 gap-1 grid-cols-4 grid md:grid-cols-8 md:gap-3 m-3 w-[75%]">
+          <div className="md:overflow-hidden grid grid-cols-4 gap-1 p-0 gap-x-10 md:grid-cols-8 md:gap-2 md:m-2 mr-2 w-full md:w-[70%] h-[90%]">
             {filterProd.map((data) => (
               <Card
                 key={data._id}

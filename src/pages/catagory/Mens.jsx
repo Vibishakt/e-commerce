@@ -108,7 +108,7 @@ function Mens() {
               selectedItems={getSelectedItem}
             />
           </div>
-          <div className="md:overflow-hidden sm:overflow-x-auto grid grid-cols-4 gap-1 gap-x-20 md:grid-cols-8 md:gap-2 m-2 w-[70%] h-[90%]">
+          <div className="md:overflow-hidden grid grid-cols-4 gap-1 p-0 gap-x-10 md:grid-cols-8 md:gap-2 md:m-2 mr-2 w-full md:w-[70%] h-[90%]">
             {filterProd.map((data) => (
               <Card
                 key={data._id}
