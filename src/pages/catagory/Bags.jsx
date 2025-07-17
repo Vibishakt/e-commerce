@@ -106,7 +106,7 @@ function Bags() {
               selectedItems={getSelectedItem}
             />
           </div>
-          <div className="md:overflow-hidden sm:overflow-x-auto grid grid-cols-4 gap-5 gap-x-20 md:grid-cols-8 md:gap-3 m-3 w-[75%]">
+          <div className="md:overflow-hidden sm:overflow-x-auto grid grid-cols-4 gap-1 gap-x-20 md:grid-cols-8 md:gap-3 m-3 w-[75%]">
             {filterProd.map((data) => (
               <Card
                 key={data.id}

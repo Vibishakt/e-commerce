@@ -165,14 +165,14 @@ const TopBar = () => {
         />
       </div>
       {toggleBtn && (
-        <div className="absolute right-0 border rounded-md bg-teal-100 z-50 gap-3 p-3 top-14 text-center w-[40%] text-zinc-700 md:hidden">
+        <div className="absolute right-0 border rounded-md bg-teal-50 z-50 gap-3 p-3 top-14 text-center w-[40%] md:hidden">
           <a
             href="/"
             onClick={() => setActiveBtn("shop")}
             className={`block py-2 ${
               activeBtn === "shop"
                 ? "font-bold bg-slate-200 rounded-md"
-                : "text-zinc-700"
+                : "text-black"
             }`}
           >
             Shop
@@ -187,7 +187,7 @@ const TopBar = () => {
               className={`w-full ${
                 activeBtn === "category"
                   ? "font-bold  bg-slate-200 rounded-md"
-                  : "text-zinc-700"
+                  : "text-black"
               }`}
             >
               Category
@@ -202,7 +202,7 @@ const TopBar = () => {
                     className={`block px-4 py-2 ${
                       activeBtn === "mens"
                         ? "font-bold  bg-slate-200 rounded-md"
-                        : "text-zinc-700"
+                        : "text-black"
                     }`}
                   >
                     Mens
@@ -215,7 +215,7 @@ const TopBar = () => {
                     className={`block px-4 py-2 ${
                       activeBtn === "women"
                         ? "font-bold  bg-slate-200 rounded-md"
-                        : "text-zinc-700"
+                        : "text-black"
                     }`}
                   >
                     Women
@@ -228,7 +228,7 @@ const TopBar = () => {
                     className={`block px-4 py-2 ${
                       activeBtn === "footwear"
                         ? "font-bold  bg-slate-200 rounded-md"
-                        : "text-zinc-700"
+                        : "text-black"
                     }`}
                   >
                     Footwear
@@ -241,7 +241,7 @@ const TopBar = () => {
                     className={`block px-4 py-2 ${
                       activeBtn === "bags"
                         ? "font-bold  bg-slate-200 rounded-md"
-                        : "text-zinc-700"
+                        : "text-black"
                     }`}
                   >
                     Bags
@@ -254,7 +254,7 @@ const TopBar = () => {
                     className={`block px-4 py-2 ${
                       activeBtn === "beauty"
                         ? "font-bold  bg-slate-200 rounded-md"
-                        : "text-zinc-700"
+                        : "text-black"
                     }`}
                   >
                     Beauty Products
@@ -267,25 +267,40 @@ const TopBar = () => {
           <a
             href={WEB_URL.ORDER.PLACE_ORDER}
             onClick={() => setActiveBtn("order")}
-            className={`block py-2 cursor-pointer focus:outline-none ${
+            className={`block py-1 cursor-pointer focus:outline-none ${
               activeBtn === "order"
                 ? "font-bold  bg-slate-200 rounded-md"
-                : "text-zinc-700"
+                : "text-black"
             }`}
           >
             My Order
           </a>
-          <a
-            href="/login"
-            onClick={() => setActiveBtn("login")}
-            className={`block py-2 cursor-pointer focus:outline-none ${
-              activeBtn === "login"
-                ? "font-bold  bg-slate-200 rounded-md"
-                : "text-zinc-700"
-            }`}
-          >
-            Login
-          </a>
+          {Name ? (
+            <div className="flex flex-col">
+              <a
+                className="cursor-pointer focus:outline-none p-3 text-black"
+                onClick={() => logOut()}
+              >
+                Logout
+              </a>
+              <div className="flex flex-row gap-2">
+                <ProfileIcon className="md:w-[25px] w-[18px] md:h-[25px] h-[20px]" />
+                <p className="text-teal-600 text-[15px]">{Name}</p>
+              </div>
+            </div>
+          ) : (
+            <a
+              href="/login"
+              onClick={() => setActiveBtn("login")}
+              className={`block py-2 cursor-pointer focus:outline-none ${
+                activeBtn === "login"
+                  ? "font-bold  bg-slate-200 rounded-md"
+                  : "text-black font-bold"
+              }`}
+            >
+              Login
+            </a>
+          )}
         </div>
       )}
     </>

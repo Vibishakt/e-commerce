@@ -63,10 +63,10 @@ const Card = ({
   return (
     <div
       onClick={() => (window.location.href = navigate)}
-      className={`sm:h-[150px] relative cursor-pointer md:h-[300px] rounded-lg shadow-md hover:scale-105 transition-all ease-in-out duration-300 bg-white ${className}`}
+      className={`h-[150px] relative cursor-pointer md:h-[300px] rounded-lg shadow-md hover:scale-105 transition-all ease-in-out duration-300 bg-white ${className}`}
     >
       <img
-        className="sm:h-[100px] sm:p-1 md:p-3 rounded-lg md:h-[270px] object-cover"
+        className="h-[100px] sm:p-1 md:p-3 rounded-lg md:h-[270px] object-cover"
         src={url}
         alt=""
       />
